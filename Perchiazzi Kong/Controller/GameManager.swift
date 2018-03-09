@@ -6,6 +6,8 @@
 //  Copyright © 2018 Simone Garuglieri. All rights reserved.
 //
 
+//ENVIROMENT
+
 import Foundation
 
 //Singleton per cose comuni nel gioco. Es.: score, timer per bonus, bonus iniziale del livello....
