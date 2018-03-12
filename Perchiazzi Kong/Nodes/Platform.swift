@@ -14,6 +14,7 @@ class Platform: SKSpriteNode {
   override init(texture: SKTexture?, color: UIColor, size: CGSize) {
     super.init(texture: nil, color: color, size: SpriteSize.platform)
     
+    self.zPosition = Z.sprites
     // Physics
     self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
     self.physicsBody?.mass = 4.0
@@ -22,7 +23,7 @@ class Platform: SKSpriteNode {
     self.physicsBody!.restitution = 0.4
     
     self.physicsBody!.categoryBitMask = PhysicsMask.platform
-    self.physicsBody!.contactTestBitMask = PhysicsMask.barrel
+    self.physicsBody!.contactTestBitMask = PhysicsMask.barrel | PhysicsMask.player
   }
   
   required init?(coder aDecoder: NSCoder) {
