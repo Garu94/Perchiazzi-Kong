@@ -12,6 +12,8 @@ class Player: SKSpriteNode {
     
     var textures: [String: [SKTexture]] = [:]
     var velocity: CGFloat = 100
+    var isJumping = false
+    
     
     init() {
         
@@ -44,12 +46,26 @@ class Player: SKSpriteNode {
             break
         }
         
-        if direction == .right {
-            self.position.x += deltaMove
-        } else {
-            
+    }
+    
+    func jump() {
+        if isJumping {
+            return
         }
+        isJumping = true
+        let deltaY: CGFloat = 20
+        let noGravity = SKAction.run {
+            self.physicsBody?.affectedByGravity = false
+        }
+        let jumpUpAction = SKAction.moveBy(x: 0, y: deltaY, duration: 0.2)
+        let jumpDownAction = SKAction.moveBy(x: 0, y: -deltaY, duration: 0.2)
+        let gravity = SKAction.run {
+            self.physicsBody?.affectedByGravity = true
+            self.isJumping = false
+        }
+        let jumpSequence = SKAction.sequence([noGravity, jumpUpAction, jumpDownAction, gravity])
         
+        self.run(jumpSequence)
     }
     
     required init?(coder aDecoder: NSCoder) {

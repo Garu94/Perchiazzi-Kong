@@ -11,31 +11,31 @@ import SpriteKit
 class HUD: SKNode {
 
     
-    let leftArrow = SKSpriteNode(texture: nil, color: .red, size: SpriteSize.button)
-    let rightArrow = SKSpriteNode(texture: nil, color: .red, size: SpriteSize.button)
+    let jumpButton = SKSpriteNode(texture: nil, color: .red, size: SpriteSize.button)
+//    let rightArrow = SKSpriteNode(texture: nil, color: .red, size: SpriteSize.button)
     
     
     override init() {
         super.init()
         self.name = "HUD"
         
-        leftArrow.name = "leftArrow"
-        leftArrow.anchorPoint = CGPoint.zero
-        leftArrow.zPosition = Z.HUD
+        jumpButton.name = "jump"
+        jumpButton.anchorPoint = CGPoint.zero
+        jumpButton.zPosition = Z.HUD
         
-        rightArrow.name = "rightArrow"
-        rightArrow.anchorPoint = CGPoint.zero
-        rightArrow.zPosition = Z.HUD
+//        rightArrow.name = "rightArrow"
+//        rightArrow.anchorPoint = CGPoint.zero
+//        rightArrow.zPosition = Z.HUD
     }
     
     func setup(size: CGSize) {
         let spacing: CGFloat = 10
         
-        self.leftArrow.position = CGPoint(x: spacing, y: spacing)
-        self.addChild(leftArrow)
-        let xRightArrow = size.width - spacing - rightArrow.size.width
-        self.rightArrow.position = CGPoint(x: xRightArrow, y: spacing)
-        self.addChild(rightArrow)
+        self.jumpButton.position = CGPoint(x: spacing, y: spacing)
+        self.addChild(jumpButton)
+//        let xRightArrow = size.width - spacing - rightArrow.size.width
+//        self.rightArrow.position = CGPoint(x: xRightArrow, y: spacing)
+//        self.addChild(rightArrow)
     }
     
     
