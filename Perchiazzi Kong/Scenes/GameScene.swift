@@ -163,6 +163,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let touchNode = self.atPoint(pos)
         if touchNode.name == "jump" {
             mario.jump()
+            return
         }
         
         if pos.x > (self.size.width / 2) {
@@ -173,10 +174,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if touchNode.name == "jump" {
-            mario.jump()
+    }
+    
+    func touchMove(toPoint pos: CGPoint) {
+        if pos.x > (self.size.width / 2) && !mario.isJumping {
+            direction = .right
+            return
+        } else if pos.x < (self.size.width / 2) && !mario.isJumping {
+            direction = .left
+            return
         }
-        
     }
     
     func touchUp(atPoint pos: CGPoint) {
@@ -192,6 +199,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             self.touchDown(atPoint: t.location(in: self))
+        }
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for t in touches {
+            self.touchMove(toPoint: t.location(in: self))
         }
     }
     
