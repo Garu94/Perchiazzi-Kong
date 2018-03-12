@@ -43,6 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //player
     let mario = Player()
+    let kong = Boss()
     
     override init(size: CGSize) {
         playableRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -98,6 +99,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         //Player
         mario.setup(view: self.view!)
         addChild(mario)
+        
+        //Kong
+        kong.setup(view: self.view!)
+        addChild(kong)
         
         //HUD
         hud.setup(size: self.size)
@@ -177,12 +182,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchMove(toPoint pos: CGPoint) {
-        if pos.x > (self.size.width / 2) && !mario.isJumping {
-            direction = .right
-            return
-        } else if pos.x < (self.size.width / 2) && !mario.isJumping {
-            direction = .left
-            return
+        let touchNode = self.atPoint(pos)
+        if touchNode.name != "jump" {
+            if pos.x > (self.size.width / 2) {
+                direction = .right
+                return
+            } else if pos.x < (self.size.width / 2) && !mario.isJumping {
+                direction = .left
+                return
+            }
         }
     }
     

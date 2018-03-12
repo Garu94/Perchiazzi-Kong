@@ -22,6 +22,8 @@
 		FF53261220514EFF00F498A1 /* Perchiazzi_KongUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF53261120514EFF00F498A1 /* Perchiazzi_KongUITests.swift */; };
 		FFCCD1AE2056C29900F5D573 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCCD1AC2056C29900F5D573 /* Player.swift */; };
 		FFCCD1AF2056C29900F5D573 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCCD1AD2056C29900F5D573 /* HUD.swift */; };
+		FFCCD1B12056E2D300F5D573 /* Boss.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCCD1B02056E2D300F5D573 /* Boss.swift */; };
+		FFCCD1B32056E35F00F5D573 /* Sprites.Atlas in Resources */ = {isa = PBXBuildFile; fileRef = FFCCD1B22056E35F00F5D573 /* Sprites.Atlas */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +65,8 @@
 		FF53261320514EFF00F498A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FFCCD1AC2056C29900F5D573 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		FFCCD1AD2056C29900F5D573 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
+		FFCCD1B02056E2D300F5D573 /* Boss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boss.swift; sourceTree = "<group>"; };
+		FFCCD1B22056E35F00F5D573 /* Sprites.Atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.Atlas; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +119,7 @@
 				FF25505D205286FD00DC06BD /* Barrel.swift */,
 				25A9E2B9205665660068B453 /* Ladder.swift */,
 				25A9E2BB2056658E0068B453 /* Platform.swift */,
+				FFCCD1B02056E2D300F5D573 /* Boss.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -142,6 +147,7 @@
 		FF5325EA20514EFE00F498A1 /* Perchiazzi Kong */ = {
 			isa = PBXGroup;
 			children = (
+				FFCCD1B22056E35F00F5D573 /* Sprites.Atlas */,
 				25A9E2B7205664AF0068B453 /* Constants.swift */,
 				FF5325EB20514EFE00F498A1 /* AppDelegate.swift */,
 				FF255055205286C400DC06BD /* Nodes */,
@@ -282,6 +288,7 @@
 			files = (
 				FF5325F720514EFE00F498A1 /* Main.storyboard in Resources */,
 				FF5325F920514EFE00F498A1 /* Assets.xcassets in Resources */,
+				FFCCD1B32056E35F00F5D573 /* Sprites.Atlas in Resources */,
 				FF5325FC20514EFE00F498A1 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,6 +319,7 @@
 				FF25505E205286FD00DC06BD /* Barrel.swift in Sources */,
 				25A9E2BC2056658E0068B453 /* Platform.swift in Sources */,
 				FF5325F220514EFE00F498A1 /* GameScene.swift in Sources */,
+				FFCCD1B12056E2D300F5D573 /* Boss.swift in Sources */,
 				25A9E2BA205665660068B453 /* Ladder.swift in Sources */,
 				FF5325F420514EFE00F498A1 /* GameViewController.swift in Sources */,
 				FF5325EC20514EFE00F498A1 /* AppDelegate.swift in Sources */,

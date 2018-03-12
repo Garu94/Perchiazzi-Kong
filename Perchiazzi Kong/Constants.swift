@@ -8,6 +8,8 @@
 
 import SpriteKit
 
+let spacing: CGFloat = 10
+
 enum PhysicsMask {
     static let player: UInt32 = 0x1 << 1    // 2
     static let platform: UInt32 = 0x1 << 2    // 4
@@ -27,6 +29,7 @@ enum SpriteSize {
     static let ladder = CGSize(width: 15, height: 50)
     static let player = CGSize(width: 30, height: 40)
     static let button = CGSize(width: 60, height: 60)
+    static let enemy = CGSize(width: 128, height: 128)
 }
 
 enum Direction {

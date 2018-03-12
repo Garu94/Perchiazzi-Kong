@@ -23,12 +23,12 @@ class Player: SKSpriteNode {
     }
     
     func setup(view: SKView) {
-        self.position = CGPoint(x: view.frame.midX, y: view.frame.maxY - 500)
+        self.position = CGPoint(x: view.frame.midX, y: view.frame.maxY - 550)
         
         self.zPosition = Z.sprites
         self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
         self.physicsBody!.isDynamic = true
-        self.physicsBody!.affectedByGravity = true
+        self.physicsBody!.affectedByGravity = false
         self.physicsBody!.categoryBitMask = PhysicsMask.player
         self.physicsBody!.contactTestBitMask = PhysicsMask.barrel
         self.physicsBody?.collisionBitMask = PhysicsMask.ladder | PhysicsMask.platform
@@ -54,16 +54,13 @@ class Player: SKSpriteNode {
         }
         isJumping = true
         let deltaY: CGFloat = 20
-        let noGravity = SKAction.run {
-            self.physicsBody?.affectedByGravity = false
-        }
+        
         let jumpUpAction = SKAction.moveBy(x: 0, y: deltaY, duration: 0.2)
         let jumpDownAction = SKAction.moveBy(x: 0, y: -deltaY, duration: 0.2)
-        let gravity = SKAction.run {
-            self.physicsBody?.affectedByGravity = true
+        let stopJump = SKAction.run {
             self.isJumping = false
         }
-        let jumpSequence = SKAction.sequence([noGravity, jumpUpAction, jumpDownAction, gravity])
+        let jumpSequence = SKAction.sequence([jumpUpAction, jumpDownAction, stopJump])
         
         self.run(jumpSequence)
     }
