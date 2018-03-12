@@ -9,81 +9,100 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
+  
+  let playableRect: CGRect
+  
+  var platform1 = Platform(texture: nil, color: .red, size: SpriteSize.platform)
+  var platform2 = Platform(texture: nil, color: .green, size: SpriteSize.platform)
+  var platform3 = Platform(texture: nil, color: .yellow, size: SpriteSize.platform)
+  var platform4 = Platform(texture: nil, color: .white , size: SpriteSize.platform)
+  var platform5 = Platform(texture: nil, color: .blue, size: SpriteSize.platform)
+  var platform6 = Platform(texture: nil, color: .cyan, size: SpriteSize.platform)
+  var platform7 = Platform(texture: nil, color: .brown, size: SpriteSize.platform)
+  var platform8 = Platform(texture: nil, color: .orange, size: SpriteSize.platform)
+  var platform9 = Platform(texture: nil, color: .magenta, size: SpriteSize.platform)
+  var platform10 = Platform(texture: nil, color: .purple, size: SpriteSize.platform)
+  
+  var ladder1 = Ladder(texture: nil, color: .brown, size: SpriteSize.ladder)
+  
+  var barrel1 = Barrel(texture: nil, color: .white, size: SpriteSize.barrel)
+  
+  override init(size: CGSize) {
+    playableRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+    super.init(size: size)
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  func debugDrawPlayableArea() {
+    let shape = SKShapeNode(rect: playableRect)
+    shape.strokeColor = SKColor.red
+    shape.lineWidth = 4.0
+    addChild(shape)
+  }
+  
+  //Before the Scene
+  override func sceneDidLoad() {
+    self.physicsWorld.contactDelegate = self
+    self.physicsWorld.gravity = CGVector(dx:0, dy: -9.8)
+  }
+  
+  override func didMove(to view: SKView) {
+    backgroundColor = .black
     
-    private var label : SKLabelNode?
-    private var spinnyNode : SKShapeNode?
+    platform1.setup(position: CGPoint(x: view.frame.midX + 80, y: view.frame.maxY - 50), rotation: -(.pi / 2.03))
+    addChild(platform1)
+    platform2.setup(position: CGPoint(x: view.frame.midX - 80, y: view.frame.maxY - 100), rotation: (.pi / 2.03))
+    addChild(platform2)
+    platform3.setup(position: CGPoint(x: view.frame.midX + 80, y: view.frame.maxY - 150), rotation: -(.pi / 2.03))
+    addChild(platform3)
+    platform4.setup(position: CGPoint(x: view.frame.midX - 80, y: view.frame.maxY - 200), rotation: (.pi / 2.03))
+    addChild(platform4)
+    platform5.setup(position: CGPoint(x: view.frame.midX + 80, y: view.frame.maxY - 250), rotation: -(.pi / 2.03))
+    addChild(platform5)
+    platform6.setup(position: CGPoint(x: view.frame.midX - 80, y: view.frame.maxY - 300), rotation: (.pi / 2.03))
+    addChild(platform6)
+    platform7.setup(position: CGPoint(x: view.frame.midX + 80, y: view.frame.maxY - 350), rotation: -(.pi / 2.03))
+    addChild(platform7)
+    platform8.setup(position: CGPoint(x: view.frame.midX - 80, y: view.frame.maxY - 400), rotation: (.pi / 2.03))
+    addChild(platform8)
+    platform9.setup(position: CGPoint(x: view.frame.midX + 80, y: view.frame.maxY - 450), rotation: -(.pi / 2.03))
+    addChild(platform9)
+    platform10.setup(position: CGPoint(x: view.frame.midX, y: view.frame.maxY - 550), rotation: .pi / 2)
+    addChild(platform10)
     
-    override func didMove(to view: SKView) {
-        
-        // Get label node from scene and store it for use later
-        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-        if let label = self.label {
-            label.alpha = 0.0
-            label.run(SKAction.fadeIn(withDuration: 2.0))
+    ladder1.setup(position: CGPoint(x:view.frame.midX, y: view.frame.midY+265))
+    addChild(ladder1)
+    
+    barrel1.setup(position: CGPoint(x: view.frame.maxX - 50, y: view.frame.maxY))
+    addChild(barrel1)
+    
+    debugDrawPlayableArea()
+  }
+  
+  func checkCollisions() {
+    enumerateChildNodes(withName: "barrel") { barrel, stop in
+      self.enumerateChildNodes(withName: "ladder") { ladder, stop in
+        if barrel.frame.intersects(ladder.frame) {
+          debugPrint("intersected!")
+
+//          let fall = SKAction.move(to: CGPoint(x: 0, y:0), duration: 2.0)
+//          barrel.run(fall)
+          
+          barrel.position = CGPoint(x: barrel.position.x, y: barrel.position.y - 30)
         }
         
-        // Create shape node to use during mouse interaction
-        let w = (self.size.width + self.size.height) * 0.05
-        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-        
-        if let spinnyNode = self.spinnyNode {
-            spinnyNode.lineWidth = 2.5
-            
-            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-                                              SKAction.fadeOut(withDuration: 0.5),
-                                              SKAction.removeFromParent()]))
-        }
+      }
     }
+  }
+  
+  override func update(_ currentTime: TimeInterval) {
+    barrel1.checkPosition(playableZone: playableRect)
     
-    
-    func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
-    }
-    
-    func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
-    }
-    
-    func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        
-        for t in touches { self.touchDown(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchMoved(toPoint: t.location(in: self)) }
-    }
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        // Called before each frame is rendered
-    }
+    checkCollisions()
+  }
+  
 }
