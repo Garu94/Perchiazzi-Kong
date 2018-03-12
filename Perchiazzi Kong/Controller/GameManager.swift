@@ -11,3 +11,5 @@
 import Foundation
 
 //Singleton per cose comuni nel gioco. Es.: score, timer per bonus, bonus iniziale del livello....
+
+//HUD-branch
