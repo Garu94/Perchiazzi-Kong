@@ -6,16 +6,9 @@
 //  Copyright © 2018 Simone Garuglieri. All rights reserved.
 //
 
-import SpriteKit
+import Foundation
 
-class Background: SKSpriteNode {
-  
-  public func setup(size: CGSize) {
-    // Physics Ground
-    let yPos: CGFloat = 20
-    let startPoint = CGPoint(x: 0, y: yPos)
-    let endPoint = CGPoint(x: size.width, y: yPos)
-    physicsBody = SKPhysicsBody(edgeFrom: startPoint, to: endPoint)
-    physicsBody?.restitution = 0.3
-  }
-}
+//Barili in alto a sinistra
+//Principessa
+//Immagine background
+//prova
