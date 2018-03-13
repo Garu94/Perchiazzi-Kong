@@ -15,14 +15,14 @@ class Ladder: SKSpriteNode {
     super.init(texture: nil, color: color, size: SpriteSize.ladder)
     name = "ladder"
     
-    self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
-    self.physicsBody?.mass = 4.0
-    self.physicsBody!.isDynamic = false
-    self.physicsBody!.affectedByGravity = false
-    self.physicsBody!.restitution = 0.4
-    
-    self.physicsBody!.categoryBitMask = PhysicsMask.ladder
-    self.physicsBody!.contactTestBitMask = PhysicsMask.barrel
+//    self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+//    self.physicsBody?.mass = 4.0
+//    self.physicsBody!.isDynamic = false
+//    self.physicsBody!.affectedByGravity = false
+//    self.physicsBody!.restitution = 0.4
+//    
+//    self.physicsBody!.categoryBitMask = PhysicsMask.ladder
+//    self.physicsBody!.contactTestBitMask = PhysicsMask.barrel
   }
   
   required init?(coder aDecoder: NSCoder) {

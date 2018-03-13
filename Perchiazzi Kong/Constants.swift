@@ -30,6 +30,8 @@ enum SpriteSize {
     static let player = CGSize(width: 30, height: 40)
     static let button = CGSize(width: 60, height: 60)
     static let enemy = CGSize(width: 128, height: 128)
+    
+    static let barrelRadious: CGFloat = 12.0
 }
 
 enum Direction {
