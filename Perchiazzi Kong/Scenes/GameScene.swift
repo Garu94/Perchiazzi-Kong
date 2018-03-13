@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     let playableRect: CGRect
     
@@ -90,6 +90,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         platform10.setup(position: CGPoint(x: view.frame.midX, y: view.frame.maxY - 550), rotation: .pi / 2)
         addChild(platform10)
         
+        //Get multiple touches
+        self.view?.isMultipleTouchEnabled = true
+        
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(jumpOnSecondtouch))
+        tapGR.delegate = self
+        tapGR.numberOfTapsRequired = 2
+        view.addGestureRecognizer(tapGR)
+        
         ladder1.setup(position: CGPoint(x:view.frame.midX, y: view.frame.midY+265))
         addChild(ladder1)
         
@@ -109,6 +117,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(hud)
         
         debugDrawPlayableArea()
+    }
+    
+    @objc func jumpOnSecondtouch() {
+        mario.jump()
     }
     
     //Physic Collision
@@ -205,8 +217,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
+        for (index, t) in touches.enumerated() {
             self.touchDown(atPoint: t.location(in: self))
+            
         }
     }
     
