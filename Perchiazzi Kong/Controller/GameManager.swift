@@ -27,6 +27,9 @@ class GameManager {
     var timerCounter: Int = 0
     var life: Int = 3
     
+    //textures
+    var allTextures: [SKTexture] = []
+    
     var timer: Timer? {
         willSet {
             timer?.invalidate()

@@ -67,12 +67,6 @@ class HUD: SKNode {
         jumpButton.anchorPoint = CGPoint.zero
         jumpButton.zPosition = Z.HUD
         
-        for name in UIFont.familyNames.sorted() {
-            let names = UIFont.fontNames(forFamilyName: name)
-            print(names)
-            
-        }
-        
 //        rightArrow.name = "rightArrow"
 //        rightArrow.anchorPoint = CGPoint.zero
 //        rightArrow.zPosition = Z.HUD
