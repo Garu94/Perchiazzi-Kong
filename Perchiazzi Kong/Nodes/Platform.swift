@@ -12,7 +12,7 @@ class Platform: SKSpriteNode {
   
   //MARK: init
   override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-    super.init(texture: nil, color: color, size: SpriteSize.platform)
+    super.init(texture: nil, color: color, size: size)
     
     // Physics
     self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
@@ -30,8 +30,16 @@ class Platform: SKSpriteNode {
   }
   
   //MARK: setup
-  func setup(position: CGPoint, rotation: CGFloat) {
+  func setup2(position: CGPoint, rotation: CGFloat) {
     self.position = position
     self.zRotation = rotation
+  }
+  
+  func setup(rotation: Float, xPosition: Float, leftHeight: Float) {
+    let m = tanf(rotation)
+    let yPosition = (m*xPosition)+leftHeight
+    self.position.x = CGFloat(xPosition)
+    self.position.y = CGFloat(yPosition)
+    self.zRotation = CGFloat(rotation+(.pi/2))
   }
 }

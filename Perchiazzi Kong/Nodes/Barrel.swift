@@ -10,17 +10,21 @@ import Foundation
 
 import SpriteKit
 
-let radious:CGFloat = 15.0
 var falling = false
 
 class Barrel: SKSpriteNode {
+  
   //MARK: init
-  override init(texture: SKTexture?, color: UIColor, size: CGSize) {
-    super.init(texture: nil, color: color, size: SpriteSize.barrel)
+  init() {
+//    super.init(texture: nil, color: .yellow, size: CGSize(width: 12, height: 12))
+    let texture = SKTexture(imageNamed: "spinning_barrels0")
+    super.init(texture: texture, color: .clear, size: SpriteSize.barrel)
     name = "barrel"
+    self.texture?.filteringMode = .nearest
     
     // Physics
-    self.physicsBody = SKPhysicsBody(circleOfRadius: radious)
+    self.physicsBody = SKPhysicsBody(circleOfRadius: SpriteSize.barrelRadious)
+//    self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
     self.physicsBody?.mass = 4.0
     self.physicsBody!.isDynamic = true
     self.physicsBody!.affectedByGravity = true
@@ -42,28 +46,37 @@ class Barrel: SKSpriteNode {
     let leftSide = playableZone.minX
     let rightSide = playableZone.maxX
     
-    if position.x - radious <= leftSide {
-      print("fuori a destra")
+    //Fuori a destra
+    if position.x - SpriteSize.barrelRadious <= leftSide {
       self.physicsBody?.velocity = CGVector(dx: +55.0, dy: 0)
     }
     
-    if position.x + radious >= rightSide {
-      print("fuori a sinistra")
+    //Fuori a sinistra
+    if position.x + SpriteSize.barrelRadious >= rightSide {
       self.physicsBody?.velocity = CGVector(dx: -55.0, dy: 0)
     }
   }
   
   func fall() {
-    if(falling) {
-      debugPrint("Sta già cadendo!")
+    debugPrint("Chiamata Fall")
+    let fallOrNot = Int(arc4random_uniform(2))
+    
+    if fallOrNot == 1 {
+      debugPrint("Deve Cadere")
+      if(falling) {
+        debugPrint("Sta già cadendo!")
+      } else {
+        debugPrint("Inizia a cadere!")
+        falling = true
+      
+        let fall = SKAction.move(to: CGPoint(x: self.position.x, y: self.position.y -  SpriteSize.ladder.height), duration: 2)
+        self.run(fall)
+//        position.y = position.y - 20
+        
+        falling = false
+      }
     } else {
-      debugPrint("Inizia a cadere!")
-      falling = true
-      self.physicsBody = nil
-      let fall = SKAction.move(to: CGPoint(x: self.position.x, y: self.position.y - 25), duration: 0.5)
-      run(fall)
-      self.physicsBody = SKPhysicsBody(circleOfRadius: radious)
-      //falling = false
+      debugPrint("NON deve cadere")
     }
   }
   

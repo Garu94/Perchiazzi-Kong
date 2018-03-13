@@ -12,21 +12,27 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
   
   let playableRect: CGRect
+
+  var platform1 = Platform(texture: nil, color: .red, size: CGSize(width: 10, height: 200))
+  var platform2 = Platform(texture: nil, color: .green, size: CGSize(width: 10, height: 40))
   
-  var platform1 = Platform(texture: nil, color: .red, size: SpriteSize.platform)
-  var platform2 = Platform(texture: nil, color: .green, size: SpriteSize.platform)
-  var platform3 = Platform(texture: nil, color: .yellow, size: SpriteSize.platform)
-  var platform4 = Platform(texture: nil, color: .white , size: SpriteSize.platform)
-  var platform5 = Platform(texture: nil, color: .blue, size: SpriteSize.platform)
-  var platform6 = Platform(texture: nil, color: .cyan, size: SpriteSize.platform)
-  var platform7 = Platform(texture: nil, color: .brown, size: SpriteSize.platform)
-  var platform8 = Platform(texture: nil, color: .orange, size: SpriteSize.platform)
-  var platform9 = Platform(texture: nil, color: .magenta, size: SpriteSize.platform)
-  var platform10 = Platform(texture: nil, color: .purple, size: SpriteSize.platform)
+  var platform3 = Platform(texture: nil, color: .yellow, size: CGSize(width: 10, height: 200))
+  
+  var platform4 = Platform(texture: nil, color: .white , size: CGSize(width: 10, height: 100))
+  
+  var platform5 = Platform(texture: nil, color: .blue, size: CGSize(width: 10, height: 250))
+  
+  var platform6 = Platform(texture: nil, color: .cyan, size: CGSize(width: 10, height: 120))
+  
+  var platform7 = Platform(texture: nil, color: .brown, size: CGSize(width: 10, height: 160))
+  
+  var platform8 = Platform(texture: nil, color: .orange, size: CGSize(width: 10, height: 275))
+  
+  var lastPlatform = Platform(texture: nil, color: .black, size: CGSize(width: 500, height: 500))
   
   var ladder1 = Ladder(texture: nil, color: .brown, size: SpriteSize.ladder)
   
-  var barrel1 = Barrel(texture: nil, color: .white, size: SpriteSize.barrel)
+  var barrel1 = Barrel()
   
   override init(size: CGSize) {
     playableRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -51,72 +57,86 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
   }
   
   override func didMove(to view: SKView) {
-    backgroundColor = .black
-    platform1.setup(position: CGPoint(x: view.frame.midX + 80, y: view.frame.maxY - 50), rotation: -(.pi / 2.03))
+    backgroundColor = .gray
+    
+    let space: CGFloat = 25
+    let distance: CGFloat = 50
+    
+    //ROSSA
+    platform1.setup(rotation: -0.01, xPosition: Float(platform1.size.height/2), leftHeight: Float(view.frame.maxY - 70))
     addChild(platform1)
-    platform2.setup(position: CGPoint(x: view.frame.midX - 80, y: view.frame.maxY - 100), rotation: (.pi / 2.03))
+    
+    //VERDE
+    platform2.setup(rotation: -(.pi/45), xPosition: Float(platform1.size.height + platform2.size.height/2), leftHeight: Float(platform1.position.y+13))
     addChild(platform2)
-    platform3.setup(position: CGPoint(x: view.frame.midX + 80, y: view.frame.maxY - 150), rotation: -(.pi / 2.03))
+    
+    //GIALLA
+    platform3.setup(rotation: 0.01, xPosition: Float(view.frame.width - platform3.size.height/2), leftHeight: Float(platform1.position.y - distance))
     addChild(platform3)
-    platform4.setup(position: CGPoint(x: view.frame.midX - 80, y: view.frame.maxY - 200), rotation: (.pi / 2.03))
+    
+    //BIANCA
+    platform4.setup(rotation: 0.01, xPosition: Float(view.frame.width - platform3.size.height - platform4.size.height/2 - space), leftHeight: Float(platform1.position.y - distance))
     addChild(platform4)
-    platform5.setup(position: CGPoint(x: view.frame.midX + 80, y: view.frame.maxY - 250), rotation: -(.pi / 2.03))
+    
+    //BLU
+    platform5.setup(rotation: -0.01, xPosition: Float(platform5.size.height/2), leftHeight: Float(platform4.position.y - distance))
     addChild(platform5)
-    platform6.setup(position: CGPoint(x: view.frame.midX - 80, y: view.frame.maxY - 300), rotation: (.pi / 2.03))
+    
+    //AZZURRA
+    platform6.setup(rotation: 0.01, xPosition: Float(view.frame.width - platform6.size.height/2), leftHeight: Float(platform5.position.y - distance))
     addChild(platform6)
-    platform7.setup(position: CGPoint(x: view.frame.midX + 80, y: view.frame.maxY - 350), rotation: -(.pi / 2.03))
+    
+    //MARRONE
+    platform7.setup(rotation: 0.01, xPosition: Float(view.frame.width - platform6.size.height - platform7.size.height/2 - space), leftHeight: Float(platform5.position.y - distance))
     addChild(platform7)
-    platform8.setup(position: CGPoint(x: view.frame.midX - 80, y: view.frame.maxY - 400), rotation: (.pi / 2.03))
+    
+    //ARANCIONE
+    platform8.setup(rotation: -0.01, xPosition: Float(platform8.size.height/2), leftHeight: Float(platform7.position.y - distance))
     addChild(platform8)
-    platform9.setup(position: CGPoint(x: view.frame.midX + 80, y: view.frame.maxY - 450), rotation: -(.pi / 2.03))
-    addChild(platform9)
-    platform10.setup(position: CGPoint(x: view.frame.midX, y: view.frame.maxY - 550), rotation: .pi / 2)
-    addChild(platform10)
     
-    ladder1.setup(position: CGPoint(x:view.frame.midX, y: view.frame.midY+265))
+    //NERA
+    lastPlatform.setup(rotation: 0, xPosition: Float(view.frame.width/2), leftHeight: 80)
+    addChild(lastPlatform)
+    
+    ladder1.setup(position: CGPoint(x: platform8.frame.width, y: platform8.frame.minY - ladder1.frame.height/2))
     addChild(ladder1)
-    
-    barrel1.setup(position: CGPoint(x: view.frame.maxX - 50, y: view.frame.maxY))
+
+    barrel1.setup(position: CGPoint(x: view.frame.minX + 100, y: view.frame.maxY))
     addChild(barrel1)
     
     debugDrawPlayableArea()
   }
   
   //Physic Collision
-  func didBegin(_ contact: SKPhysicsContact) {
-//    debugPrint("bodyA: \(contact.bodyA.node!.name!)")
-//    debugPrint("bodyB: \(contact.bodyB.node!.name!)")
-    
-    if (contact.bodyA.categoryBitMask == PhysicsMask.ladder) {
-//      debugPrint("ladder hit something")
-      
-      //Barrel hits ladder
-      if (contact.bodyB.node!.name! == "barrel") {
-//        debugPrint("What? a barrel!")
-        let barrel = contact.bodyB.node! as? Barrel
-        barrel?.fall()
-      }
-    }
-  }
+  //  func didBegin(_ contact: SKPhysicsContact) {
+  //    if (contact.bodyA.categoryBitMask == PhysicsMask.ladder) {
+  ////      debugPrint("ladder hit something")
+  //
+  //      //Barrel hits ladder
+  //      if (contact.bodyB.node!.name! == "barrel") {
+  ////        debugPrint("What? a barrel!")
+  //        let barrel = contact.bodyB.node! as? Barrel
+  //        barrel?.fall()
+  //      }
+  //    }
+  //  }
   
   //Simple Collision
-  var isFallen = false
-  func checkCollisions() {
-    enumerateChildNodes(withName: "barrel") { barrel, stop in
-      self.enumerateChildNodes(withName: "ladder") { ladder, stop in
-        if !self.isFallen {
-        if barrel.frame.intersects(ladder.frame) {
-          debugPrint("intersected!")
-          
-          //          let fall = SKAction.move(to: CGPoint(x: 0, y:0), duration: 2.0)
-          //          barrel.run(fall)
-          barrel.position = CGPoint(x: barrel.position.x, y: barrel.position.y - 30)
-          self.isFallen = true
-        }
-        }
-        
-      }
-    }
+//  func checkCollisions() {
+//    enumerateChildNodes(withName: "barrel") { barrel, stop in
+//      self.enumerateChildNodes(withName: "ladder") { ladder, stop in
+//        if barrel.frame.intersects(ladder.frame) {
+//          let collidedBarrel = barrel as? Barrel
+//          collidedBarrel?.fall()
+//        }
+//      }
+//    }
+//  }
+  
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    guard let touch = touches.first else { return }
+    
+    barrel1.position = touch.location(in: self)
   }
   
   override func update(_ currentTime: TimeInterval) {

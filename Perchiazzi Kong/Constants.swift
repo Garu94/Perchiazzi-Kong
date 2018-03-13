@@ -16,7 +16,8 @@ enum PhysicsMask {
 }
 
 enum SpriteSize {
-  static let platform = CGSize(width: 10, height: 350)
+  static let platform = CGSize(width: 10, height: 50)
   static let barrel = CGSize(width: 35, height: 35)
-  static let ladder = CGSize(width: 15, height: 50)
+  static let barrelRadious = CGFloat(12)
+  static let ladder = CGSize(width: 15, height: 70)
 }
