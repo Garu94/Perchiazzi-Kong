@@ -41,7 +41,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     var platform8 = Platform(texture: nil, color: .orange, size: CGSize(width: 10, height: 275))
     
-    var lastPlatform = Platform(texture: nil, color: .black, size: CGSize(width: 500, height: 500))
+    var lastPlatform = Platform(texture: nil, color: .black, size: CGSize(width: 100, height: 500))
     
     var ladder1 = Ladder(texture: nil, color: .brown, size: SpriteSize.ladder)
     
@@ -112,7 +112,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         addChild(platform8)
         
         //NERA
-        lastPlatform.setup(rotation: 0, xPosition: Float(view.frame.width/2), leftHeight: 80)
+        lastPlatform.setup(rotation: 0, xPosition: Float(view.frame.width/2), leftHeight: 20)
         addChild(lastPlatform)
         
         ladder1.setup(position: CGPoint(x: platform8.frame.width, y: platform8.frame.minY - ladder1.frame.height/2))
@@ -123,20 +123,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         
         //Get multiple touches
-        self.view?.isMultipleTouchEnabled = true
+//        self.view?.isMultipleTouchEnabled = true
+//
+//        let tapGR = UITapGestureRecognizer(target: self, action: #selector(jumpOnSecondtouch))
+//        tapGR.delegate = self
+//        tapGR.numberOfTapsRequired = 2
+//        view.addGestureRecognizer(tapGR)
         
-        let tapGR = UITapGestureRecognizer(target: self, action: #selector(jumpOnSecondtouch))
-        tapGR.delegate = self
-        tapGR.numberOfTapsRequired = 2
-        view.addGestureRecognizer(tapGR)
+        //PAN GESTURE
+//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(moveOnLadder))
         
-        //Player
-        mario.setup(view: self.view!)
-        addChild(mario)
+        
+//        let longPressure = UILongPressGestureRecognizer(target: self, action: #selector(walk))
+//        longPressure.delegate = self
+//        longPressure.minimumPressDuration = 0.2
+//        view.addGestureRecognizer(longPressure)
         
         //Kong
         kong.setup(view: self.view!)
         addChild(kong)
+        
+        //Player
+        mario.setup(view: self.view!)
+        addChild(mario)
         
         //HUD
         hud.setup(size: self.size)
@@ -147,9 +156,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         debugDrawPlayableArea()
     }
     
-    @objc func jumpOnSecondtouch() {
-        mario.jump()
-    }
+//    @objc func jumpOnSecondtouch() {
+//        mario.jump()
+//    }
     
     //Physic Collision
     func didBegin(_ contact: SKPhysicsContact) {
@@ -168,25 +177,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
-    //Simple Collision
-    var isFallen = false
-    func checkCollisions() {
-        enumerateChildNodes(withName: "barrel") { barrel, stop in
-            self.enumerateChildNodes(withName: "ladder") { ladder, stop in
-                if !self.isFallen {
-                    if barrel.frame.intersects(ladder.frame) {
-                        debugPrint("intersected!")
-                        
-                        //          let fall = SKAction.move(to: CGPoint(x: 0, y:0), duration: 2.0)
-                        //          barrel.run(fall)
-                        barrel.position = CGPoint(x: barrel.position.x, y: barrel.position.y - 30)
-                        self.isFallen = true
-                    }
-                }
-                
-            }
-        }
-    }
+    
+  
     
     override func update(_ currentTime: TimeInterval) {
         if lastTime <= 0 { lastTime = currentTime }
@@ -208,7 +200,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
        barrel1.checkPosition(playableZone: playableRect)
         
-        debugPrint(mario.position)
         //    checkCollisions()
     }
     
@@ -254,7 +245,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for (index, t) in touches.enumerated() {
+        for t in touches {
             self.touchDown(atPoint: t.location(in: self))
             
         }
@@ -269,6 +260,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             self.touchUp(atPoint: t.location(in: self))
+        }
+    }
+    
+    
+    func isOnLadder() -> Bool {
+        var isOnLadder: Bool = false
+        
+        enumerateChildNodes(withName: "ladder") { ladder, stop in
+            if ladder.frame.intersects(self.mario.frame) {
+                isOnLadder = true
+            }
+            
+        }
+        
+        return isOnLadder
+    }
+    
+    //Simple Collision
+    var isFallen = false
+    func checkCollisions() {
+        enumerateChildNodes(withName: "barrel") { barrel, stop in
+            self.enumerateChildNodes(withName: "ladder") { ladder, stop in
+                if !self.isFallen {
+                    if barrel.frame.intersects(ladder.frame) {
+                        debugPrint("intersected!")
+                        
+                        //          let fall = SKAction.move(to: CGPoint(x: 0, y:0), duration: 2.0)
+                        //          barrel.run(fall)
+                        barrel.position = CGPoint(x: barrel.position.x, y: barrel.position.y - 30)
+                        self.isFallen = true
+                    }
+                }
+                
+            }
         }
     }
     

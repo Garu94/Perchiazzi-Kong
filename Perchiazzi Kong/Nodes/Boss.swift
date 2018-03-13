@@ -15,11 +15,13 @@ class Boss: SKSpriteNode {
     
     init() {
         // Extract sprites from Singleton
-        self.textures["idle"] = GameManager.shared.allTextures.filter { $0.description.contains("idle") }
-        self.textures["action"] = GameManager.shared.allTextures.filter { $0.description.contains("action") }
-        self.textures["angry"] = GameManager.shared.allTextures.filter { $0.description.contains("angry") }
+        self.textures["idle"] = GameManager.shared.allTextures.filter { $0.description.contains("perchi-idle") }
+        self.textures["action"] = GameManager.shared.allTextures.filter { $0.description.contains("perchi-action") }
+        self.textures["angry"] = GameManager.shared.allTextures.filter { $0.description.contains("perchi-angry") }
+        debugPrint(textures)
         
-        // Instantiate Player
+        
+        // Instantiate Boss
         super.init(texture: textures["idle"]?[0], color: .clear, size: SpriteSize.enemy)
         self.name = "enemy"
     }

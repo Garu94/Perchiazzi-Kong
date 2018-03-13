@@ -110,6 +110,7 @@ class HUD: SKNode {
         addChild(nameFixedLabel)
         
         self.jumpButton.position = CGPoint(x: spacing, y: spacing)
+        jumpButton.size.width = size.width - (spacing * 2)
         self.addChild(jumpButton)
 //        let xRightArrow = size.width - spacing - rightArrow.size.width
 //        self.rightArrow.position = CGPoint(x: xRightArrow, y: spacing)

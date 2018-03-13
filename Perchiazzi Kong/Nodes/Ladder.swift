@@ -20,7 +20,7 @@ class Ladder: SKSpriteNode {
 //    self.physicsBody!.isDynamic = false
 //    self.physicsBody!.affectedByGravity = false
 //    self.physicsBody!.restitution = 0.4
-//    
+//
 //    self.physicsBody!.categoryBitMask = PhysicsMask.ladder
 //    self.physicsBody!.contactTestBitMask = PhysicsMask.barrel
   }

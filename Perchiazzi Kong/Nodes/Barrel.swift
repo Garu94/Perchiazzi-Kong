@@ -30,7 +30,8 @@ class Barrel: SKSpriteNode {
         self.physicsBody!.affectedByGravity = true
         self.physicsBody!.restitution = 0.5
         self.physicsBody!.categoryBitMask = PhysicsMask.barrel
-        self.physicsBody!.contactTestBitMask = PhysicsMask.platform | PhysicsMask.ladder
+        self.physicsBody!.contactTestBitMask = PhysicsMask.platform | PhysicsMask.ladder | PhysicsMask.player
+//        self.physicsBody?.collisionBitMask = PhysicsMask.player | PhysicsMask.platform
     }
     
     required init?(coder aDecoder: NSCoder) {
