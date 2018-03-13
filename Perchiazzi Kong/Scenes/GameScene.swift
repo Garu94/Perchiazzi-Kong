@@ -103,6 +103,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         hud.setup(size: self.size)
         addChild(hud)
         
+        GameManager.shared.startTimer(label: hud.bonusLabel)
+        
         debugDrawPlayableArea()
     }
     
@@ -153,6 +155,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         lastTime = currentTime
         
         mario.move(deltaTime: deltaTime, direction: direction)
+        
+        if GameManager.shared.life == 0 {
+            let endScene = EndScene(size: size)
+            endScene.scaleMode = scaleMode
+            // 2
+            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+            // 3
+            view?.presentScene(endScene, transition: reveal)
+        }
         
         debugPrint(mario.position)
         //    checkCollisions()
