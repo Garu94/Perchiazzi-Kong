@@ -8,23 +8,40 @@
 
 //ENVIROMENT
 
+import Foundation
 import SpriteKit
-
-class GameManager {
-    static let shared = GameManager() // Singleton
-    
-    // Stats & HUD
-    var score: Int = 0
-    var appCounted: Bool = false
-    var monstersKills: Int = 0
-    var timerCounter: Int = 30
-    
-    // Textures
-    var allTextures: [SKTexture] = []
-
-
-}
-
 //Singleton per cose comuni nel gioco. Es.: score, timer per bonus, bonus iniziale del livello....
 
 //HUD-branch
+
+enum Scores {
+    static let bonus = 10
+}
+
+class GameManager {
+    
+    static let shared = GameManager()
+    
+    var score: Int = 0
+    var bonus: Int = 5000
+    var timerCounter: Int = 0
+    var life: Int = 3
+    
+    var timer: Timer? {
+        willSet {
+            timer?.invalidate()
+            timerCounter = 0
+        }
+    }
+    
+    func startTimer(label: SKLabelNode) {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
+            self.timerCounter += 1
+            if self.timerCounter % 5 == 0 {
+                self.bonus -= 100
+                label.text = "\(self.bonus)"
+            }
+        })
+    }
+}
+
