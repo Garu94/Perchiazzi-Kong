@@ -9,7 +9,7 @@
 import SpriteKit
 import GameplayKit
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     let playableRect: CGRect
     
@@ -43,6 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     //player
     let mario = Player()
+    let kong = Boss()
     
     override init(size: CGSize) {
         playableRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -89,6 +90,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         platform10.setup(position: CGPoint(x: view.frame.midX, y: view.frame.maxY - 550), rotation: .pi / 2)
         addChild(platform10)
         
+        //Get multiple touches
+        self.view?.isMultipleTouchEnabled = true
+        
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(jumpOnSecondtouch))
+        tapGR.delegate = self
+        tapGR.numberOfTapsRequired = 2
+        view.addGestureRecognizer(tapGR)
+        
         ladder1.setup(position: CGPoint(x:view.frame.midX, y: view.frame.midY+265))
         addChild(ladder1)
         
@@ -99,11 +108,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         mario.setup(view: self.view!)
         addChild(mario)
         
+        //Kong
+        kong.setup(view: self.view!)
+        addChild(kong)
+        
         //HUD
         hud.setup(size: self.size)
         addChild(hud)
         
         debugDrawPlayableArea()
+    }
+    
+    @objc func jumpOnSecondtouch() {
+        mario.jump()
     }
     
     //Physic Collision
@@ -177,12 +194,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchMove(toPoint pos: CGPoint) {
-        if pos.x > (self.size.width / 2) && !mario.isJumping {
-            direction = .right
-            return
-        } else if pos.x < (self.size.width / 2) && !mario.isJumping {
-            direction = .left
-            return
+        let touchNode = self.atPoint(pos)
+        if touchNode.name != "jump" {
+            if pos.x > (self.size.width / 2) {
+                direction = .right
+                return
+            } else if pos.x < (self.size.width / 2) && !mario.isJumping {
+                direction = .left
+                return
+            }
         }
     }
     
@@ -197,8 +217,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
+        for (index, t) in touches.enumerated() {
             self.touchDown(atPoint: t.location(in: self))
+            
         }
     }
     
@@ -213,6 +234,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             self.touchUp(atPoint: t.location(in: self))
         }
     }
-    
     
 }
