@@ -17,9 +17,7 @@ class GameViewController: UIViewController {
         // Create view
         if let view = self.view as! SKView? {
             
-            // Create Scene
-            let scene = GameScene(size: view.frame.size)
-            scene.scaleMode = .aspectFill // Fit the window
+            
             
             // Debug
             view.ignoresSiblingOrder = false
@@ -31,16 +29,21 @@ class GameViewController: UIViewController {
             let playerAtlas = SKTextureAtlas(named: "Sprites")
             debugPrint(playerAtlas)
             
-            
             // Get the list of texture names, and sort them
             let textureNames = playerAtlas.textureNames.sorted { (first, second) -> Bool in
                 return first < second
             }
-            
+
             // Load all textures into Singleton
             GameManager.shared.allTextures = textureNames.map {
                 return playerAtlas.textureNamed($0)
             }
+
+            debugPrint(GameManager.shared.allTextures)
+            
+            // Create Scene
+            let scene = MenuScene(size: view.frame.size)
+            scene.scaleMode = .aspectFill // Fit the window
             
             // Show Screen
             view.presentScene(scene)
