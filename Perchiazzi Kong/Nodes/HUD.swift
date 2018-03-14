@@ -31,7 +31,7 @@ class HUD: SKNode {
         super.init()
         self.name = "HUD"
         
-        pointLabel.text = "I-000000"
+        pointLabel.text = "I" + String(GameManager.shared.score)
         pointLabel.zPosition = 100
         pointLabel.fontSize = HUDSettings.fontSize
         
@@ -51,11 +51,11 @@ class HUD: SKNode {
         nameFixedLabel.zPosition = 100
         nameFixedLabel.fontSize = HUDSettings.fontSize
         
-        leftLifeLabel.text = "3"
+        leftLifeLabel.text = String(GameManager.shared.life)
         leftLifeLabel.zPosition = 100
         leftLifeLabel.fontSize = HUDSettings.fontSize
         
-        bonusLabel.text = "5000"
+        bonusLabel.text = String(GameManager.shared.bonus)
         bonusLabel.zPosition = 100
         bonusLabel.fontSize = HUDSettings.fontSize
         
@@ -90,20 +90,23 @@ class HUD: SKNode {
         leftLifeLabel.position = CGPoint(x: size.width - spacing - leftLifeLabel.frame.width/2, y: size.height - topLabel.frame.height - 2*spacing - lifeFixedLabel.frame.height - leftLifeLabel.frame.height)
         addChild(leftLifeLabel)
         
-        bonusFixedLabel.position = CGPoint(x: size.width - 2*spacing - leftLifeLabel.frame.width - bonusLabel.frame.width/2, y: size.height - topLabel.frame.height - 2*spacing - lifeFixedLabel.frame.height)
+        bonusFixedLabel.position = CGPoint(x: size.width - 2*spacing - lifeFixedLabel.frame.width - bonusFixedLabel.frame.width/2, y: size.height - topLabel.frame.height - 2*spacing - lifeFixedLabel.frame.height)
         addChild(bonusFixedLabel)
         
         
 //        bonusLabel.lineBreakMode = .byWordWrapping
 //        bonusLabel.numberOfLines = 2
+        
         bonusLabel.position = CGPoint(x: size.width - 2*spacing - leftLifeLabel.frame.width - bonusLabel.frame.width/2, y: size.height - topLabel.frame.height - 2*spacing - lifeFixedLabel.frame.height - leftLifeLabel.frame.height)
+        
+        bonusLabel.horizontalAlignmentMode = .center
         addChild(bonusLabel)
         
 //        levelLabel.lineBreakMode = .byWordWrapping
 //        levelLabel.numberOfLines = 2
 
         
-        levelLabel.position = CGPoint(x: bonusLabel.position.x - bonusLabel.frame.width, y: bonusLabel.position.y)
+        levelLabel.position = CGPoint(x: bonusFixedLabel.position.x - bonusFixedLabel.frame.width, y: bonusLabel.position.y)
         addChild(levelLabel)
         
         nameFixedLabel.position = CGPoint(x: levelLabel.position.x, y: bonusFixedLabel.position.y)

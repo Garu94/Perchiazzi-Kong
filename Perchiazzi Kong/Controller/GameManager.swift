@@ -23,7 +23,7 @@ class GameManager {
     static let shared = GameManager()
     
     var score: Int = 0
-    var bonus: Int = 5000
+    var bonus: Int = 500
     var timerCounter: Int = 0
     var life: Int = 3
     
@@ -37,13 +37,18 @@ class GameManager {
         }
     }
     
+    func stopTimer() {
+        timer?.invalidate()
+    }
+    
     func startTimer(label: SKLabelNode) {
+        
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
             self.timerCounter += 1
-            if self.timerCounter % 5 == 0 {
+            if self.timerCounter % 2 == 0 {
                 self.bonus -= 100
                 label.text = "\(self.bonus)"
-            }
+                }
         })
     }
 }

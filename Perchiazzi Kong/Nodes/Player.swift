@@ -11,7 +11,7 @@ import SpriteKit
 class Player: SKSpriteNode {
     
     var textures: [String: [SKTexture]] = [:]
-    var velocity: CGFloat = 100
+    var velocity: CGFloat = 200
     var isJumping = false
     var orientation: CGFloat = 0.0
     var isOnLadder: Bool = false
@@ -38,15 +38,15 @@ class Player: SKSpriteNode {
         super.init(texture: textures["idle"]?[0], color: .red, size: SpriteSize.player)
         
         self.name = "player"
-        self.setScale(1.0)
+        
     }
     
     func setup(view: SKView) {
         self.position = CGPoint(x: view.frame.midX, y: view.frame.maxY - 550)
         
         self.zPosition = Z.sprites
-        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
-//        self.physicsBody = SKPhysicsBody(texture: self.texture!, size: (self.texture?.size())!)
+//        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        self.physicsBody = SKPhysicsBody(texture: self.texture!, size: (self.texture?.size())!)
         self.physicsBody!.isDynamic = true
         self.physicsBody?.allowsRotation = false
         self.physicsBody!.affectedByGravity = true
@@ -54,7 +54,7 @@ class Player: SKSpriteNode {
         self.physicsBody!.contactTestBitMask = PhysicsMask.barrel
 //        self.physicsBody?.collisionBitMask = PhysicsMask.ladder | PhysicsMask.platform | PhysicsMask.barrel
         self.physicsBody?.restitution = 0.4
-        
+        self.setScale(1.0)
 //        floor = SKPhysicsBody(edgeFrom: CGPoint(x: self.frame.minX, y: self.frame.minY), to: CGPoint(x: self.frame.maxX, y: self.frame.minY))
 //        floorNode.physicsBody = floor
 //        addChild(floorNode)
@@ -67,7 +67,7 @@ class Player: SKSpriteNode {
     func move(deltaTime: TimeInterval, direction: Direction) {
 //        debugPrint(textures["run"])
         
-        
+//        self.physicsBody
         let deltaMove = velocity * CGFloat(deltaTime)
     
         switch direction {
@@ -95,7 +95,7 @@ class Player: SKSpriteNode {
             return
         }
         isJumping = true
-        let deltaY: CGFloat = (SpriteSize.barrelRadious * 2) + (self.size.height / 2)
+        let deltaY: CGFloat = (SpriteSize.barrelRadious * 3) + (self.size.height / 2) 
         
         let startAction = SKAction.run {
             self.physicsBody?.affectedByGravity = false
@@ -150,8 +150,7 @@ class Player: SKSpriteNode {
          self.run(SKAction.sequence([dyingAnimation, continueRotation]))
         
     }
-    
-    
+
     func animate(type: String) {
         
 //        if type == "idle" {

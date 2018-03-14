@@ -27,7 +27,7 @@ enum SpriteSize {
     static let platform = CGSize(width: 10, height: 350)
     static let barrel = CGSize(width: 35, height: 35)
     static let ladder = CGSize(width: 15, height: 50)
-    static let player = CGSize(width: 30, height: 40)
+    static let player = CGSize(width: 36, height: 47)
     static let button = CGSize(width: 60, height: 60)
     static let enemy = CGSize(width: 128, height: 128)
     

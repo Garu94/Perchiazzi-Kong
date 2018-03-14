@@ -224,7 +224,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
        barrel1.checkPosition(playableZone: playableRect)
         mario.checkBorderCollision(playableZone: playableRect)
+        
+        if GameManager.shared.bonus == 0 {
+            GameManager.shared.stopTimer()
+        }
         //    checkCollisions()
+        checkBarrelProximity(playerFrame: mario.frame)
     }
     
     func touchDown(atPoint pos: CGPoint) {
@@ -291,6 +296,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             self.touchUp(atPoint: t.location(in: self))
+            
+        }
+    }
+    
+    func checkBarrelProximity(playerFrame: CGRect) {
+        enumerateChildNodes(withName: "barrel") { barrel, stop in
+        let thresholdYDistance = 30 + barrel.frame.height + playerFrame.height
+        let yDistance = playerFrame.maxY - barrel.frame.minY
+            if barrel.frame.maxY <= playerFrame.minY && yDistance <= thresholdYDistance && self.mario.isJumping == true {
+                let thresholdXDistance = abs(CGFloat(barrel.frame.minX - playerFrame.minX))
+//                if playerFrame.minX <= barrel.frame.maxX
+            GameManager.shared.score += 10
+            self.hud.pointLabel.text = String(GameManager.shared.score)
+            }
         }
     }
     
