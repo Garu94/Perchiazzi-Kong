@@ -46,7 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var ladder1 = Ladder(texture: nil, color: .brown, size: SpriteSize.ladder)
     
     var barrel1 = Barrel()
-    
+    var barrel2 = Barrel()
     //player
     let mario = Player()
     let kong = Boss()
@@ -147,9 +147,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         mario.setup(view: self.view!)
         addChild(mario)
         
+        barrel2.setup(position: CGPoint(x: view.frame.minX + 100, y: mario.position.y + 100))
+        addChild(barrel2)
+        
         //HUD
         hud.setup(size: self.size)
         addChild(hud)
+        
+        ladder1.position = CGPoint(x: mario.position.x + 50, y: mario.position.y)
         
         GameManager.shared.startTimer(label: hud.bonusLabel)
         
@@ -165,15 +170,43 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         //    debugPrint("bodyA: \(contact.bodyA.node!.name!)")
         //    debugPrint("bodyB: \(contact.bodyB.node!.name!)")
         
-        if (contact.bodyA.categoryBitMask == PhysicsMask.ladder) {
+        
+        if (contact.bodyA.categoryBitMask == PhysicsMask.player) {
+            
+            if (contact.bodyB.categoryBitMask == PhysicsMask.barrel) {
+                mario.die()
+                self.isUserInteractionEnabled = false
+                GameManager.shared.life -= 1
+                checkUltimateDeath()
+            }
+        }
+        
+        
+        
+//        if (contact.bodyA.categoryBitMask == PhysicsMask.ladder) {
             //      debugPrint("ladder hit something")
             
             //Barrel hits ladder
-            if (contact.bodyB.node!.name! == "barrel") {
-                //        debugPrint("What? a barrel!")
-                let barrel = contact.bodyB.node! as? Barrel
-                barrel?.fall()
-            }
+//            if (contact.bodyB.node!.name! == "barrel") {
+//                //        debugPrint("What? a barrel!")
+//                let barrel = contact.bodyB.node! as? Barrel
+//                barrel?.fall()
+//            }
+    }
+    
+    func checkUltimateDeath() {
+        let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+        if GameManager.shared.life == 0 {
+            let endScene = EndScene(size: size)
+            endScene.scaleMode = scaleMode
+            // 2
+            
+            // 3
+            view?.presentScene(endScene, transition: reveal)
+        } else {
+            let gameScene = GameScene(size: size)
+            gameScene.scaleMode = scaleMode
+            view?.presentScene(gameScene, transition: reveal)
         }
     }
     
@@ -189,17 +222,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         mario.move(deltaTime: deltaTime, direction: direction)
         
-        if GameManager.shared.life == 0 {
-            let endScene = EndScene(size: size)
-            endScene.scaleMode = scaleMode
-            // 2
-            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            // 3
-            view?.presentScene(endScene, transition: reveal)
-        }
-        
        barrel1.checkPosition(playableZone: playableRect)
-        
+        mario.checkBorderCollision(playableZone: playableRect)
         //    checkCollisions()
     }
     
@@ -209,6 +233,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if touchNode.name == "jump" {
             mario.jump()
             return
+        } else {
+            mario.isRunning = true
+            mario.animate(type: "run")
         }
         
         if pos.x > (self.size.width / 2) {
@@ -224,6 +251,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func touchMove(toPoint pos: CGPoint) {
         let touchNode = self.atPoint(pos)
         if touchNode.name != "jump" {
+            debugPrint(mario.textures["run"])
+//            mario.animate(type: "run")
             if pos.x > (self.size.width / 2) {
                 direction = .right
                 return
@@ -241,6 +270,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         
         if touchNode.name != "jump" {
             direction = .stop
+            mario.animate(type: "idle")
+            mario.isRunning = false
         }
     }
     
@@ -271,9 +302,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if ladder.frame.intersects(self.mario.frame) {
                 isOnLadder = true
             }
-            
         }
-        
         return isOnLadder
     }
     
