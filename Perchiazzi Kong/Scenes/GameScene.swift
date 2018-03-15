@@ -54,8 +54,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var platform6 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 40))
 
     //Third Floor
-    
+    var platform7 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 200))
+    var elevator5 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
   
+    //Perchiazzi-Kong Floor
+  
+    //Stefania Floor
+    var stefaniaPlatform = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 75))
   
     var barrel1 = Barrel()
     var barrel2 = Barrel()
@@ -152,9 +157,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       addChild(platform5)
       
       //MARK: Third Floor SETUP
+      platform7.simpleSetup(rotation: degreeToRadians(degree: 90 + 6), position: CGPoint(x: elevator4.position.x + elevator4.size.width/2 + platform7.size.height/2, y: elevator4.position.y + 95 + elevator4.size.height))
+      addChild(platform7)
       
+      elevator5.setup(position: CGPoint(x: platform7.position.x + platform7.size.height/2 + elevator5.size.width/2, y: platform7.position.y + elevator5.size.height))
+      elevator5.moveVertically(amountToMove: 160, time: 4)
+      addChild(elevator5)
       
+      //MARK: Perchiazzi-Kong Floor SETUP
       
+      //MARK: Stefania Floor SETUP
+      stefaniaPlatform.simpleSetup(rotation: degreeToRadians(degree: 90 ), position: CGPoint(x: view.frame.width - stefaniaPlatform.size.height/2, y: elevator5.position.y + 160 + elevator5.size.height/2))
+      addChild(stefaniaPlatform)
       
         barrel1.setup(position: CGPoint(x: view.frame.minX + 400, y: view.frame.maxY))
 //        addChild(barrel1)
