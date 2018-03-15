@@ -75,6 +75,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   //Decorations
   let barrelPack = SKSpriteNode(imageNamed: "barrel_pack")
   let singleBarrel = SKSpriteNode(imageNamed: "barrel_single")
+  let background = SKSpriteNode(imageNamed: "background_temporary")
     
   //player
   let mario = Player()
@@ -104,7 +105,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   }
   
   override func didMove(to view: SKView) {
-    backgroundColor = .gray
+//    backgroundColor = .gray
+    background.size = CGSize(width: view.frame.width, height: view.frame.height)
+    background.position = CGPoint(x: view.frame.midX, y: view.frame.maxY)
+    addChild(background)
     
     //MARK: HUD SETUP
     hud.setup(size: self.size)
