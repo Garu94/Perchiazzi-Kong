@@ -56,11 +56,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     //Third Floor
     var platform7 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 200))
     var elevator5 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
+    var platform8 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 100))
   
     //Perchiazzi-Kong Floor
+    var kongPlatform = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 150))
   
     //Stefania Floor
     var stefaniaPlatform = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 75))
+  
+    //Bonus Floor
+    var bonusPlatform1 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
+    var bonusPlatform2 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
+    var bonusPlatform3 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
+    var bonusPlatform4 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
+
   
     var barrel1 = Barrel()
     var barrel2 = Barrel()
@@ -92,9 +101,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     override func didMove(to view: SKView) {
         backgroundColor = .gray
-        
-        let space: CGFloat = SpriteSize.elevator.width
-        let distance: CGFloat = 100
         
 //        //Princess Platform SETUP
 //        platform1.setup(rotation: 0, xPosition: Float(view.frame.width - platform1.frame.height/2), leftHeight: Float(view.frame.maxY - 75))
@@ -164,11 +170,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       elevator5.moveVertically(amountToMove: 160, time: 4)
       addChild(elevator5)
       
-      //MARK: Perchiazzi-Kong Floor SETUP
-      
       //MARK: Stefania Floor SETUP
-      stefaniaPlatform.simpleSetup(rotation: degreeToRadians(degree: 90 ), position: CGPoint(x: view.frame.width - stefaniaPlatform.size.height/2, y: elevator5.position.y + 160 + elevator5.size.height/2))
+      stefaniaPlatform.simpleSetup(rotation: degreeToRadians(degree: 90), position: CGPoint(x: view.frame.width - stefaniaPlatform.size.height/2, y: elevator5.position.y + 160 + elevator5.size.height/2))
       addChild(stefaniaPlatform)
+      
+      //MARK: Perchiazzi-Kong Floor SETUP
+      kongPlatform.simpleSetup(rotation: degreeToRadians(degree: 90), position: CGPoint(x: kongPlatform.size.height/2, y: stefaniaPlatform.position.y - 37))
+      addChild(kongPlatform)
+      
+      //MARK: Bonus Floor SETUP
+      bonusPlatform1.simpleSetup(rotation: degreeToRadians(degree: 90), position: CGPoint(x: bonusPlatform1.size.height/2 + 113, y: kongPlatform.position.y - 70))
+      addChild(bonusPlatform1)
+      
+      bonusPlatform2.simpleSetup(rotation: degreeToRadians(degree: 90 + 10), position: CGPoint(x: bonusPlatform1.position.x + bonusPlatform1.size.height/2 + bonusPlatform2.size.height/2, y: bonusPlatform1.position.y + bonusPlatform1.size.width/2 - 1))
+      addChild(bonusPlatform2)
+      
+      bonusPlatform3.simpleSetup(rotation: degreeToRadians(degree: 90 - 10), position: CGPoint(x: bonusPlatform2.position.x + bonusPlatform2.size.height/2 + bonusPlatform3.size.height/2, y: bonusPlatform1.position.y + bonusPlatform1.size.width/2 - 1))
+      addChild(bonusPlatform3)
+      
+      bonusPlatform4.simpleSetup(rotation: degreeToRadians(degree: 90), position: CGPoint(x: bonusPlatform3.position.x + bonusPlatform3.size.height/2 + bonusPlatform4.size.height/2, y: bonusPlatform1.position.y))
+//      addChild(bonusPlatform4)
       
         barrel1.setup(position: CGPoint(x: view.frame.minX + 400, y: view.frame.maxY))
 //        addChild(barrel1)
