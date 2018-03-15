@@ -206,7 +206,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     //MARK: Decorations SETUP
     barrelPack.position = CGPoint(x: barrelPack.size.width/2 + 5, y: stefaniaPlatform.position.y + 2)
     addChild(barrelPack)
-    singleBarrel.position = CGPoint(x: barrelPack.size.width + 2 + singleBarrel.size.width/2, y: kongPlatform.position.y + 18)
+    singleBarrel.position = CGPoint(x: barrelPack.size.width + 2 + singleBarrel.size.width/2, y: kongPlatform.position.y + 22)
     singleBarrel.size = CGSize(width: 20, height: 33)
     addChild(singleBarrel)
     
