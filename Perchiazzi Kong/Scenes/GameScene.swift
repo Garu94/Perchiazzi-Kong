@@ -107,7 +107,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   override func didMove(to view: SKView) {
 //    backgroundColor = .gray
     background.size = CGSize(width: view.frame.width, height: view.frame.height)
-    background.position = CGPoint(x: view.frame.midX, y: view.frame.maxY)
+    background.position = CGPoint(x: view.frame.midX, y: view.frame.midY)
     addChild(background)
     
     //MARK: HUD SETUP

@@ -12,8 +12,11 @@ class ComicScene: SKScene {
     
     var animationArray: [SKTexture] = []
     var animatioNode: SKSpriteNode?
+    let labelText = "Tap To Skip ->"
     
     override func didMove(to view: SKView) {
+        
+        
         self.animationArray = GameManager.shared.allTextures.filter { $0.description.contains("comic") }
         let scene = GameScene(size: size)
         let animationNode = SKSpriteNode(texture: animationArray[0], color: .clear, size: view.frame.size)
