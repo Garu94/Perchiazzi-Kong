@@ -19,7 +19,8 @@ class Barrel: SKSpriteNode {
     //MARK: init
     init() {
         //    super.init(texture: nil, color: .yellow, size: CGSize(width: 12, height: 12))
-        let texture = SKTexture(imageNamed: "spinning_barrels0")
+//        let texture = SKTexture(imageNamed: "spinning_barrels0")
+        let texture = SKTexture(imageNamed: "barrel_spin")
         super.init(texture: texture, color: .clear, size: SpriteSize.barrel)
         name = "barrel"
         self.texture?.filteringMode = .nearest
@@ -32,7 +33,7 @@ class Barrel: SKSpriteNode {
         self.physicsBody?.mass = 4.0
         self.physicsBody!.isDynamic = true
         self.physicsBody!.affectedByGravity = true
-        self.physicsBody!.restitution = 0.5
+        self.physicsBody!.restitution = 0.2
         self.physicsBody!.categoryBitMask = PhysicsMask.barrel
         self.physicsBody!.contactTestBitMask = PhysicsMask.platform | PhysicsMask.ladder | PhysicsMask.player
 //        self.physicsBody?.collisionBitMask = PhysicsMask.player | PhysicsMask.platform
