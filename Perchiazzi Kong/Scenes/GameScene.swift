@@ -61,7 +61,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   var elevator5 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
   var platform8 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 100))
   
-  
   //Perchiazzi-Kong Floor
   var kongPlatform = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 150))
   
@@ -72,6 +71,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   var bonusPlatform1 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
   var bonusPlatform2 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
   var bonusPlatform3 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
+  
+  //Decorations
+  let barrelPack = SKSpriteNode(imageNamed: "barrel_pack")
+  let singleBarrel = SKSpriteNode(imageNamed: "barrel_single")
     
   //player
   let mario = Player()
@@ -200,6 +203,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     bonusPlatform3.texture = SKTexture(imageNamed: "bonusPlatform2")
     addChild(bonusPlatform3)
     
+    //MARK: Decorations SETUP
+    barrelPack.position = CGPoint(x: barrelPack.size.width/2 + 5, y: stefaniaPlatform.position.y + 2)
+    addChild(barrelPack)
+    singleBarrel.position = CGPoint(x: barrelPack.size.width + 2 + singleBarrel.size.width/2, y: kongPlatform.position.y + 18)
+    singleBarrel.size = CGSize(width: 20, height: 33)
+    addChild(singleBarrel)
+    
     //MARK: Kong SETUP
     kong.setup(view: self.view!)
     addChild(kong)
@@ -279,7 +289,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       if randomImpulse == 1 {
         barrel.physicsBody?.applyImpulse(CGVector(dx: 300.0, dy: 0.0))
       } else {
-        barrel.physicsBody?.applyImpulse(CGVector(dx: 900.0, dy: 0.0))
+        barrel.physicsBody?.applyImpulse(CGVector(dx: 1000.0, dy: 0.0))
       }
     }
     let wait1 = SKAction.wait(forDuration: 0.4)

@@ -30,7 +30,7 @@ class Barrel: SKSpriteNode {
         // Physics
         self.physicsBody = SKPhysicsBody(circleOfRadius: SpriteSize.barrelRadious)
         self.physicsBody?.mass = 4.0
-      self.physicsBody?.angularDamping = 2
+        self.physicsBody?.angularDamping = 2
         self.physicsBody!.isDynamic = true
         self.physicsBody!.affectedByGravity = true
         self.physicsBody!.restitution = 0.2

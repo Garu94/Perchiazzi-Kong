@@ -27,7 +27,7 @@ class Boss: SKSpriteNode {
     func setup(view: SKView) {
         self.zPosition = Z.sprites
         
-        let startingX = (spacing + SpriteSize.barrel.width) * 2.0
+        let startingX = ((spacing + SpriteSize.barrel.width) * 2.0 + 55)
         let startingY = view.frame.height - self.frame.height - spacing
         self.position = CGPoint(x: startingX, y: startingY)
         
