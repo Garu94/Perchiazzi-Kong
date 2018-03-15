@@ -36,16 +36,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var direction: Direction = Direction.stop
     //    var rightArrowIsPressed: Bool = false
     //    var leftArrowisPressed: Bool = false
-    
-    //MARK: Declarations
-//    //Princess Platform
-//    var platform1 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
-//
-//    //Perchiazzi-Kong Platform
-//    var platform2 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 175))
-
   
-    //Base Floof
+    //Base Floor
     var baseElevator1 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
     var basePlatform1 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 105))
     var baseElevator2 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
@@ -112,13 +104,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     override func didMove(to view: SKView) {
         backgroundColor = .gray
-        
-//        //Princess Platform SETUP
-//        platform1.setup(rotation: 0, xPosition: Float(view.frame.width - platform1.frame.height/2), leftHeight: Float(view.frame.maxY - 75))
-//
-//        //Perchiazzi-Kong Platform SETUP
-//        platform2.setup(rotation: 0, xPosition: Float(platform2.size.height/2), leftHeight: Float(view.frame.maxY - 155))
-//
 
       //MARK: HUD SETUP
       hud.setup(size: self.size)
@@ -207,10 +192,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       bonusPlatform4.simpleSetup(rotation: degreeToRadians(degree: 90), position: CGPoint(x: bonusPlatform3.position.x + bonusPlatform3.size.height/2 + bonusPlatform4.size.height/2, y: bonusPlatform1.position.y))
 //      addChild(bonusPlatform4)
       
-        barrel1.setup(position: CGPoint(x: view.frame.minX + 400, y: view.frame.maxY))
-//        addChild(barrel1)
-        barrel2.setup(position: CGPoint(x: view.frame.minX + 100, y: mario.position.y + 100))
-//        addChild(barrel2)
+//        barrel1.setup(position: CGPoint(x: view.frame.minX + 400, y: view.frame.maxY))
+////        addChild(barrel1)
+//        barrel2.setup(position: CGPoint(x: view.frame.minX + 100, y: mario.position.y + 100))
+////        addChild(barrel2)
       
         //Kong
         kong.setup(view: self.view!)
@@ -249,9 +234,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if GameManager.shared.life == 0 {
             let endScene = EndScene(size: size)
             endScene.scaleMode = scaleMode
-            // 2
-            
-            // 3
+            GameManager.shared.life = 3
             view?.presentScene(endScene, transition: reveal)
         } else {
             let gameScene = GameScene(size: size)
@@ -285,7 +268,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             let barrel = Barrel()
             barrel.setup(position: pos)
             self.addChild(barrel)
-//            barrel.physicsBody?.applyImpulse(CGVector(dx: 9.0, dy: 0.0))
+            let randomImpulse = arc4random_uniform(2)
+          if randomImpulse == 1 {
+            barrel.physicsBody?.applyImpulse(CGVector(dx: 300.0, dy: 0.0))
+          } else {
+            barrel.physicsBody?.applyImpulse(CGVector(dx: 900.0, dy: 0.0))
+          }
         }
         let wait1 = SKAction.wait(forDuration: 0.4)
         let stopAnimation = SKAction.run {
