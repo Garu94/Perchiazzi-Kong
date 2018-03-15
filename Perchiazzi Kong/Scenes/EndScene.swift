@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 
 class EndScene: SKScene {
-
+    
     override func sceneDidLoad() {
         GameManager.shared.timer?.invalidate()
     }
@@ -21,18 +21,18 @@ class EndScene: SKScene {
         gameoverLabel.fontSize = 80
         gameoverLabel.numberOfLines = 2
         gameoverLabel.text = "Game\nOver"
-        gameoverLabel.position = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2)
+        gameoverLabel.position = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2 - gameoverLabel.frame.height / 2)
         addChild(gameoverLabel)
+        
+        let wait = SKAction.wait(forDuration: 6.0)
+        let block = SKAction.run {
+            let scene = MenuScene(size: self.frame.size)
+            scene.scaleMode = .aspectFill
+            let transitionType = SKTransition.flipHorizontal(withDuration: 0.5)
+            self.view?.presentScene(scene, transition: transitionType)
+        }
+        self.run(SKAction.sequence([wait, block]))
+        
     }
-    
-    let wait = SKAction.wait(forDuration: 6.0)
-    let block = SKAction.run {
-//        let scene = MenuScene(size: self.size)
-//        scene.scaleMode = .aspectFill
-        let transitionType = SKTransition.flipHorizontal(withDuration: 0.5)
-//        self.view?.presentScene(scene, transition: transitionType)
-    }
-//    self.run(SKAction.sequence([wait, block]))
-    
 }
 
