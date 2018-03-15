@@ -64,9 +64,4 @@ class Elevator: SKSpriteNode {
     let moveAction = SKAction.sequence([SKAction.setTexture(rightTexture), moveLeft, SKAction.setTexture(stayTexture), wait, SKAction.setTexture(leftTexture), moveRight, SKAction.setTexture(stayTexture), wait])
     run(SKAction.repeatForever(moveAction))
   }
-  
-  func moveHorizontallyLR() {
-    self.physicsBody?.velocity = CGVector(dx: +100, dy: 0)
-  }
-  
 }

@@ -76,7 +76,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   let barrelPack = SKSpriteNode(imageNamed: "barrel_pack")
   let singleBarrel = SKSpriteNode(imageNamed: "barrel_single")
   let background = SKSpriteNode(imageNamed: "background_temporary")
-    
+  
   //player
   let mario = Player()
   let kong = Boss()
@@ -105,7 +105,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   }
   
   override func didMove(to view: SKView) {
-//    backgroundColor = .gray
+    //    backgroundColor = .gray
     background.size = CGSize(width: view.frame.width, height: view.frame.height)
     background.position = CGPoint(x: view.frame.midX, y: view.frame.midY)
     addChild(background)
@@ -239,23 +239,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   func didBegin(_ contact: SKPhysicsContact) {
     if (contact.bodyA.categoryBitMask == PhysicsMask.player) {
       
-//        if contact.bodyB.categoryBitMask == PhysicsMask.elevator {
-//            let elevator = contact.bodyB.node! as! Elevator
-//            mario.position.x = elevator.position.x
-//        }
-        
+      //        if contact.bodyB.categoryBitMask == PhysicsMask.elevator {
+      //            let elevator = contact.bodyB.node! as! Elevator
+      //            mario.position.x = elevator.position.x
+      //        }
+      
       if (contact.bodyB.categoryBitMask == PhysicsMask.barrel) {
         mario.die()
         self.isUserInteractionEnabled = false
         checkUltimateDeath()
       }
     }
-//    else if contact.bodyB.categoryBitMask == PhysicsMask.player {
-//        if contact.bodyA.categoryBitMask == PhysicsMask.elevator {
-//            let elevator = contact.bodyA.node! as! Elevator
-//            mario.position.x = elevator.position.x
-//        }
-//    }
+    //    else if contact.bodyB.categoryBitMask == PhysicsMask.player {
+    //        if contact.bodyA.categoryBitMask == PhysicsMask.elevator {
+    //            let elevator = contact.bodyA.node! as! Elevator
+    //            mario.position.x = elevator.position.x
+    //        }
+    //    }
   }
   
   func checkUltimateDeath() {
@@ -322,12 +322,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   
   func checkBorderCollisionBarrel() {
     enumerateChildNodes(withName: "barrel") { barrel, _ in
-      if (barrel.position.x - barrel.frame.size.height/2) <= 0 {
+      if (barrel.position.x - barrel.frame.size.height/2 <= 0) {
+        if barrel.position.y >= 200 {
           barrel.physicsBody?.applyImpulse(CGVector(dx: 300, dy: 0))
+        } else {
+          barrel.removeFromParent()
         }
+      }
       
       if (barrel.position.x + barrel.frame.size.height/2) >= self.playableRect.width {
-        barrel.physicsBody?.applyImpulse(CGVector(dx: -300, dy: 0))
+        if barrel.position.y >= 200 {
+          barrel.physicsBody?.applyImpulse(CGVector(dx: -300, dy: 0))
+        } else {
+          barrel.physicsBody?.applyImpulse(CGVector(dx: -300, dy: 0))
+        }
       }
     }
   }
@@ -350,6 +358,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     checkBorderCollisionBarrel()
     checkPrincessCollision()
   }
+  
   let darioXVelocity = 150
   func touchDown(atPoint pos: CGPoint) {
     //With AtPoint
@@ -364,11 +373,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     if pos.x > (self.size.width / 2) && touchNode.name != "jump" {
       direction = .right
-//        mario.physicsBody?.velocity = CGVector(dx: darioXVelocity, dy: 0)
+      //        mario.physicsBody?.velocity = CGVector(dx: darioXVelocity, dy: 0)
       return
     } else if pos.x < (self.size.width / 2) && touchNode.name != "jump" {
       direction = .left
-//        mario.physicsBody?.velocity = CGVector(dx: -darioXVelocity, dy: 0)
+      //        mario.physicsBody?.velocity = CGVector(dx: -darioXVelocity, dy: 0)
       return
     }
     
@@ -379,11 +388,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     if touchNode.name != "jump" {
       if pos.x > (self.size.width / 2) && !mario.isJumping {
         direction = .right
-//        mario.physicsBody?.velocity = CGVector(dx: darioXVelocity, dy: 0)
+        //        mario.physicsBody?.velocity = CGVector(dx: darioXVelocity, dy: 0)
         return
       } else if pos.x < (self.size.width / 2) && !mario.isJumping {
         direction = .left
-//        mario.physicsBody?.velocity = CGVector(dx: -darioXVelocity, dy: 0)
+        //        mario.physicsBody?.velocity = CGVector(dx: -darioXVelocity, dy: 0)
         return
       }
     }
