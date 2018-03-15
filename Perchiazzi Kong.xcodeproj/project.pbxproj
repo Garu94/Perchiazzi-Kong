@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1C7456BF2056E10B00282B51 /* Pixeled.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C7456BE2056E10700282B51 /* Pixeled.ttf */; };
 		1C7456C32057CFDE00282B51 /* EndScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C7456C22057CFDE00282B51 /* EndScene.swift */; };
+		2520F691205B02FB005F26B2 /* Princess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2520F690205B02FB005F26B2 /* Princess.swift */; };
 		25A9E2B8205664AF0068B453 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9E2B7205664AF0068B453 /* Constants.swift */; };
 		25A9E2BC2056658E0068B453 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A9E2BB2056658E0068B453 /* Platform.swift */; };
 		FF25505E205286FD00DC06BD /* Barrel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF25505D205286FD00DC06BD /* Barrel.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		1C7456BE2056E10700282B51 /* Pixeled.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Pixeled.ttf; sourceTree = "<group>"; };
 		1C7456C22057CFDE00282B51 /* EndScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScene.swift; sourceTree = "<group>"; };
+		2520F690205B02FB005F26B2 /* Princess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Princess.swift; sourceTree = "<group>"; };
 		25A9E2B7205664AF0068B453 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		25A9E2BB2056658E0068B453 /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		FF25505D205286FD00DC06BD /* Barrel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barrel.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				FF25505D205286FD00DC06BD /* Barrel.swift */,
 				25A9E2BB2056658E0068B453 /* Platform.swift */,
 				FFCCD1B02056E2D300F5D573 /* Boss.swift */,
+				2520F690205B02FB005F26B2 /* Princess.swift */,
 			);
 			path = Nodes;
 			sourceTree = "<group>";
@@ -346,6 +349,7 @@
 				FFCCD1AF2056C29900F5D573 /* HUD.swift in Sources */,
 				FFD6AE0C205AC0B0006FFBF1 /* ComicScene.swift in Sources */,
 				FF25505E205286FD00DC06BD /* Barrel.swift in Sources */,
+				2520F691205B02FB005F26B2 /* Princess.swift in Sources */,
 				25A9E2BC2056658E0068B453 /* Platform.swift in Sources */,
 				FF5325F220514EFE00F498A1 /* GameScene.swift in Sources */,
 				FFCCD1B12056E2D300F5D573 /* Boss.swift in Sources */,

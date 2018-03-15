@@ -47,9 +47,9 @@ class HUD: SKNode {
 //        lifeFixedLabel.zPosition = 100
 //        lifeFixedLabel.fontSize = HUDSettings.fontSize
         
-        nameFixedLabel.text = "D"
-        nameFixedLabel.zPosition = 100
-        nameFixedLabel.fontSize = HUDSettings.fontSize
+//        nameFixedLabel.text = "D"
+//        nameFixedLabel.zPosition = 100
+//        nameFixedLabel.fontSize = HUDSettings.fontSize
         
         lifeLabel.text = "LIVES: " + String(GameManager.shared.life)
         lifeLabel.zPosition = 100

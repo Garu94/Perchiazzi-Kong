@@ -47,7 +47,7 @@ class Elevator: SKSpriteNode {
   }
   
   func moveHorizontallyRightLeft(amountToMove: Float, time: Float) {
-    let moveRight = SKAction.moveTo(x: self.position.x + CGFloat(amountToMove) + self.size.width/2, duration: TimeInterval(time))
+    let moveRight = SKAction.moveTo(x: self.position.x - CGFloat(amountToMove) - self.size.width/2, duration: TimeInterval(time))
     let moveLeft = SKAction.moveTo(x: self.position.x, duration: TimeInterval(time))
     let wait = SKAction.wait(forDuration: 1)
     

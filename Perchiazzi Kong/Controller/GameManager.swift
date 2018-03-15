@@ -6,13 +6,8 @@
 //  Copyright © 2018 Simone Garuglieri. All rights reserved.
 //
 
-//ENVIROMENT
-
 import Foundation
 import SpriteKit
-//Singleton per cose comuni nel gioco. Es.: score, timer per bonus, bonus iniziale del livello....
-
-//HUD-branch
 
 enum Scores {
     static let bonus = 10
@@ -24,7 +19,7 @@ class GameManager {
     
     let bonusString: String = "BONUS: "
     var score: Int = 0
-    var bonus: Int = 4444
+    var bonus: Int = 5000
     var timerCounter: Int = 0
     var life: Int = 3
     

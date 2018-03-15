@@ -26,13 +26,14 @@ enum Z {
 
 enum SpriteSize {
     static let platform = CGSize(width: 10, height: 350)
-    static let barrel = CGSize(width: 15, height: 15)
+    static let barrel = CGSize(width: 20, height: 20)
     static let ladder = CGSize(width: 15, height: 50)
     static let player = CGSize(width: 36, height: 47)
     static let button = CGSize(width: 60, height: 60)
     static let enemy = CGSize(width: 94, height: 68)
+    static let princess = CGSize(width: 51, height: 43)
     static let elevator = CGSize(width: 30, height: 12)
-    static let barrelRadious: CGFloat = 6.0
+    static let barrelRadious: CGFloat = 10.0
 }
 
 enum Direction {

@@ -74,12 +74,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   var bonusPlatform3 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
   var bonusPlatform4 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
   
-  
-  var barrel1 = Barrel()
-  var barrel2 = Barrel()
   //player
   let mario = Player()
   let kong = Boss()
+  let princess = Princess()
   
   override init(size: CGSize) {
     playableRect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
@@ -119,11 +117,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     basePlatform1.texture = SKTexture(imageNamed: "basePlatform1")
     addChild(basePlatform1)
     
-    baseElevator2.setup(position: CGPoint(x: basePlatform1.position.x + basePlatform1.size.height/2 + baseElevator2.size.width/2, y: hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + baseElevator2.frame.height/2))
+    baseElevator2.setup(position: CGPoint(x: basePlatform1.position.x + basePlatform1.size.height/2 + baseElevator2.size.width + 65, y: hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + baseElevator2.frame.height/2))
     baseElevator2.moveHorizontallyRightLeft(amountToMove: 65, time: 2)
     addChild(baseElevator2)
     
-    basePlatform2.setup(rotation: 0, xPosition: Float(baseElevator2.position.x + baseElevator2.size.width + 65 + basePlatform2.size.height/2), leftHeight: Float(hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + basePlatform2.size.width/2))
+    basePlatform2.setup(rotation: 0, xPosition: Float(baseElevator2.position.x + baseElevator2.size.width/2 + basePlatform2.size.height/2), leftHeight: Float(hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + basePlatform2.size.width/2))
     basePlatform2.texture = SKTexture(imageNamed: "basePlatform2")
     addChild(basePlatform2)
     
@@ -193,17 +191,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     bonusPlatform3.simpleSetup(rotation: degreeToRadians(degree: 90 - 10), position: CGPoint(x: bonusPlatform2.position.x + bonusPlatform2.size.height/2 + bonusPlatform3.size.height/2, y: bonusPlatform1.position.y + bonusPlatform1.size.width/2 - 1))
     addChild(bonusPlatform3)
     
-    bonusPlatform4.simpleSetup(rotation: degreeToRadians(degree: 90), position: CGPoint(x: bonusPlatform3.position.x + bonusPlatform3.size.height/2 + bonusPlatform4.size.height/2, y: bonusPlatform1.position.y))
-    //      addChild(bonusPlatform4)
-    
-    
-    //Kong
+    //MARK: Kong SETUP
     kong.setup(view: self.view!)
     addChild(kong)
     
-    //Player
+    //MARK: Player SETUP
     mario.setup(view: self.view!)
     addChild(mario)
+    
+    //MARK: Princess SETUP
+    princess.setup(view: self.view!)
+    addChild(princess)
     
     startTimerForBarrel()
     GameManager.shared.startTimer(label: hud.bonusLabel)
@@ -216,8 +214,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   
   //MARK: Physic Collision
   func didBegin(_ contact: SKPhysicsContact) {
-    //            debugPrint("bodyA: \(contact.bodyA.node!.name!)")
-    //            debugPrint("bodyB: \(contact.bodyB.node!.name!)")
     if (contact.bodyA.categoryBitMask == PhysicsMask.player) {
       
       if (contact.bodyB.categoryBitMask == PhysicsMask.barrel) {
@@ -233,6 +229,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     if GameManager.shared.life == 0 {
       let endScene = EndScene(size: size)
       endScene.scaleMode = scaleMode
+      GameManager.shared.score = 0
+      GameManager.shared.bonus = 5000
+      GameManager.shared.timerCounter = 0
       GameManager.shared.life = 3
       view?.presentScene(endScene, transition: reveal)
     } else {
@@ -281,13 +280,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     self.run(SKAction.sequence([wait, spawn, wait1, stopAnimation]))
   }
   
+  func checkPrincessCollision() {
+    if mario.intersects(princess) {
+      princess.reachedByPlayer()
+    }
+  }
+  
   func checkBorderCollisionBarrel() {
     enumerateChildNodes(withName: "barrel") { barrel, _ in
-      if barrel.position.x <= 0 {
-        barrel.physicsBody?.applyImpulse(CGVector(dx: 300, dy: 0))
-      }
+      if (barrel.position.x - barrel.frame.size.height/2) <= 0 {
+          barrel.physicsBody?.applyImpulse(CGVector(dx: 300, dy: 0))
+        }
       
-      if barrel.position.x >= self.playableRect.width {
+      if (barrel.position.x + barrel.frame.size.height/2) >= self.playableRect.width {
         barrel.physicsBody?.applyImpulse(CGVector(dx: -300, dy: 0))
       }
     }
@@ -301,8 +306,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     lastTime = currentTime
     
     mario.move(deltaTime: deltaTime, direction: direction)
-    
-    barrel1.checkPosition(playableZone: playableRect)
     mario.checkBorderCollision(playableZone: playableRect)
     
     if GameManager.shared.bonus == 0 {
@@ -311,6 +314,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     
     checkfallenDown()
     checkBorderCollisionBarrel()
+    checkPrincessCollision()
   }
   
   func touchDown(atPoint pos: CGPoint) {

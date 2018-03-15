@@ -18,8 +18,6 @@ class Boss: SKSpriteNode {
         self.textures["idle"] = GameManager.shared.allTextures.filter { $0.description.contains("perchi-idle") }
         self.textures["action"] = GameManager.shared.allTextures.filter { $0.description.contains("perchi-action") }
         self.textures["angry"] = GameManager.shared.allTextures.filter { $0.description.contains("perchi-angry") }
-        debugPrint(textures)
-        
         
         // Instantiate Boss
         super.init(texture: textures["idle"]?[0], color: .clear, size: SpriteSize.enemy)

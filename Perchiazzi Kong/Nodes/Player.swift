@@ -29,12 +29,7 @@ class Player: SKSpriteNode {
         self.textures["win"] = GameManager.shared.allTextures.filter { $0.description.contains("dario-win") }
         //TODO: Remember to rotate the texture in die()
         self.textures["lose"] = GameManager.shared.allTextures.filter { $0.description.contains("dario-lose") }
-        
-        
-        
-        
-//        debugPrint(textures)
-        
+      
         super.init(texture: textures["idle"]?[0], color: .red, size: SpriteSize.player)
         
         self.name = "player"
@@ -162,7 +157,7 @@ class Player: SKSpriteNode {
         guard let texturesOfType = textures[type] else {
             return
         }
-        debugPrint(texturesOfType)
+//        debugPrint(texturesOfType)
         let animation = SKAction.animate(with: texturesOfType, timePerFrame: (1.0 / 5.0))
         self.run(SKAction.repeatForever(animation))
     }

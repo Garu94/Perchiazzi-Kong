@@ -39,10 +39,10 @@ class GameViewController: UIViewController {
                 return playerAtlas.textureNamed($0)
             }
 
-            debugPrint(GameManager.shared.allTextures)
-            
+//            debugPrint(GameManager.shared.allTextures)
+          
             // Create Scene
-            let scene = MenuScene(size: view.frame.size)
+            let scene = ComicScene(size: view.frame.size)
             scene.scaleMode = .aspectFill // Fit the window
             
             // Show Screen
