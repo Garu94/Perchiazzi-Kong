@@ -23,8 +23,7 @@ class Elevator: SKSpriteNode {
     self.physicsBody!.isDynamic = false
     self.physicsBody!.affectedByGravity = false
     self.physicsBody!.restitution = 0.4
-    
-    self.physicsBody!.categoryBitMask = PhysicsMask.platform
+    self.physicsBody!.categoryBitMask = PhysicsMask.elevator
     self.physicsBody!.contactTestBitMask = PhysicsMask.barrel
   }
   

@@ -235,12 +235,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   func didBegin(_ contact: SKPhysicsContact) {
     if (contact.bodyA.categoryBitMask == PhysicsMask.player) {
       
+//        if contact.bodyB.categoryBitMask == PhysicsMask.elevator {
+//            let elevator = contact.bodyB.node! as! Elevator
+//            mario.position.x = elevator.position.x
+//        }
+        
       if (contact.bodyB.categoryBitMask == PhysicsMask.barrel) {
         mario.die()
         self.isUserInteractionEnabled = false
         checkUltimateDeath()
       }
     }
+//    else if contact.bodyB.categoryBitMask == PhysicsMask.player {
+//        if contact.bodyA.categoryBitMask == PhysicsMask.elevator {
+//            let elevator = contact.bodyA.node! as! Elevator
+//            mario.position.x = elevator.position.x
+//        }
+//    }
   }
   
   func checkUltimateDeath() {
@@ -335,7 +346,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     checkBorderCollisionBarrel()
     checkPrincessCollision()
   }
-  
+  let darioXVelocity = 150
   func touchDown(atPoint pos: CGPoint) {
     //With AtPoint
     let touchNode = self.atPoint(pos)
@@ -347,11 +358,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       mario.animate(type: "run")
     }
     
-    if pos.x > (self.size.width / 2) {
+    if pos.x > (self.size.width / 2) && touchNode.name != "jump" {
       direction = .right
+//        mario.physicsBody?.velocity = CGVector(dx: darioXVelocity, dy: 0)
       return
     } else if pos.x < (self.size.width / 2) && touchNode.name != "jump" {
       direction = .left
+//        mario.physicsBody?.velocity = CGVector(dx: -darioXVelocity, dy: 0)
       return
     }
     
@@ -360,11 +373,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   func touchMove(toPoint pos: CGPoint) {
     let touchNode = self.atPoint(pos)
     if touchNode.name != "jump" {
-      if pos.x > (self.size.width / 2) {
+      if pos.x > (self.size.width / 2) && !mario.isJumping {
         direction = .right
+//        mario.physicsBody?.velocity = CGVector(dx: darioXVelocity, dy: 0)
         return
       } else if pos.x < (self.size.width / 2) && !mario.isJumping {
         direction = .left
+//        mario.physicsBody?.velocity = CGVector(dx: -darioXVelocity, dy: 0)
         return
       }
     }
