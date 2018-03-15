@@ -46,12 +46,21 @@ class Elevator: SKSpriteNode {
     run(SKAction.repeatForever(moveAction))
   }
   
-  func moveHorizontally(amountToMove: Float, time: Float) {
+  func moveHorizontallyRightLeft(amountToMove: Float, time: Float) {
     let moveRight = SKAction.moveTo(x: self.position.x + CGFloat(amountToMove) + self.size.width/2, duration: TimeInterval(time))
     let moveLeft = SKAction.moveTo(x: self.position.x, duration: TimeInterval(time))
     let wait = SKAction.wait(forDuration: 1)
     
     let moveAction = SKAction.sequence([moveRight, wait, moveLeft, wait])
+    run(SKAction.repeatForever(moveAction))
+  }
+  
+  func moveHorizontallyLeftRight(amountToMove: Float, time: Float) {
+    let moveLeft = SKAction.moveTo(x: self.position.x + CGFloat(amountToMove) + self.size.width/2, duration: TimeInterval(time))
+    let moveRight = SKAction.moveTo(x: self.position.x, duration: TimeInterval(time))
+    let wait = SKAction.wait(forDuration: 1)
+    
+    let moveAction = SKAction.sequence([moveLeft, wait, moveRight, wait])
     run(SKAction.repeatForever(moveAction))
   }
   
