@@ -8,8 +8,7 @@
 
 import SpriteKit
 import GameplayKit
-
-
+import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
   
@@ -105,6 +104,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   }
   
   override func didMove(to view: SKView) {
+    //Music
+    playBackgroundMusic(filename: "gameSound.wav")
     //    backgroundColor = .gray
     background.size = CGSize(width: view.frame.width, height: view.frame.height)
     background.position = CGPoint(x: view.frame.midX, y: view.frame.midY)
@@ -267,10 +268,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       GameManager.shared.bonus = 5000
       GameManager.shared.timerCounter = 0
       GameManager.shared.life = 3
+      backgroundMusicPlayer.stop()
       view?.presentScene(endScene, transition: reveal)
     } else {
       let gameScene = GameScene(size: size)
       gameScene.scaleMode = scaleMode
+      backgroundMusicPlayer.stop()
       view?.presentScene(gameScene, transition: reveal)
     }
   }
@@ -429,4 +432,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       
     }
   }
+  
+  var backgroundMusicPlayer: AVAudioPlayer!
+  func playBackgroundMusic(filename: String) {
+    let resourceUrl = Bundle.main.url(forResource: filename, withExtension: nil)
+    guard let url = resourceUrl else {
+      print("Could not find file: \(filename)")
+      return
+    }
+    do {
+      try backgroundMusicPlayer = AVAudioPlayer(contentsOf: url)
+      backgroundMusicPlayer.numberOfLoops = -1
+      backgroundMusicPlayer.prepareToPlay()
+      backgroundMusicPlayer.play()
+    } catch {
+      print("Could not create audio player!")
+      return
+    }
+  }
+  
 }
