@@ -46,7 +46,7 @@ class Player: SKSpriteNode {
         self.physicsBody?.allowsRotation = false
         self.physicsBody!.affectedByGravity = true
         self.physicsBody!.categoryBitMask = PhysicsMask.player
-        self.physicsBody!.contactTestBitMask = PhysicsMask.barrel
+        self.physicsBody!.contactTestBitMask = PhysicsMask.barrel | PhysicsMask.elevator
 //        self.physicsBody?.collisionBitMask = PhysicsMask.ladder | PhysicsMask.platform | PhysicsMask.barrel
         self.physicsBody?.restitution = 0.4
         self.setScale(1.0)

@@ -14,7 +14,7 @@ enum PhysicsMask {
     static let player: UInt32 = 0x1 << 1    // 2
     static let platform: UInt32 = 0x1 << 2    // 4
     static let barrel: UInt32 = 0x1 << 3     // 8
-    static let ladder: UInt32 = 0x1 << 4  // 16
+    static let elevator: UInt32 = 0x1 << 4  // 16
     static let increaseScore: UInt32 = 0x1 << 5 //32
 }
 
