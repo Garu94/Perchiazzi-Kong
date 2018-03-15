@@ -21,8 +21,8 @@ class GameViewController: UIViewController {
             
             // Debug
             view.ignoresSiblingOrder = false
-            view.showsFPS = true
-            view.showsNodeCount = true
+//            view.showsFPS = true
+//            view.showsNodeCount = true
 //            view.showsPhysics = true
           
             //Load textures atlas

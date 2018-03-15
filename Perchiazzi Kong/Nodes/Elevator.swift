@@ -10,9 +10,11 @@ import SpriteKit
 
 class Elevator: SKSpriteNode {
   
-  let upTexture = SKTexture.init(imageNamed: "elevator_0")
-  let downTexture = SKTexture.init(imageNamed: "elevator_1")
-  let stayTexture = SKTexture.init(imageNamed: "elevator_2")
+  let upTexture = SKTexture.init(imageNamed: "elevator_sprite_up")
+  let downTexture = SKTexture.init(imageNamed: "elevator_spritedown")
+  let leftTexture = SKTexture.init(imageNamed: "elevator_sprite_left")
+  let rightTexture = SKTexture.init(imageNamed: "elevator_sprite_right")
+  let stayTexture = SKTexture.init(imageNamed: "elevator_sprite_stay")
   
   override init(texture: SKTexture?, color: UIColor, size: CGSize) {
     super.init(texture: nil, color: color, size: size)
@@ -42,7 +44,7 @@ class Elevator: SKSpriteNode {
     let moveDown = SKAction.moveTo(y: self.position.y, duration: TimeInterval(time))
     let wait = SKAction.wait(forDuration: 1)
     
-    let moveAction = SKAction.sequence([moveUp, wait, moveDown, wait])
+    let moveAction = SKAction.sequence([SKAction.setTexture(upTexture), moveUp, SKAction.setTexture(stayTexture), wait, SKAction.setTexture(downTexture), moveDown, SKAction.setTexture(stayTexture), wait])
     run(SKAction.repeatForever(moveAction))
   }
   
@@ -51,7 +53,7 @@ class Elevator: SKSpriteNode {
     let moveLeft = SKAction.moveTo(x: self.position.x, duration: TimeInterval(time))
     let wait = SKAction.wait(forDuration: 1)
     
-    let moveAction = SKAction.sequence([moveRight, wait, moveLeft, wait])
+    let moveAction = SKAction.sequence([SKAction.setTexture(leftTexture), moveRight, SKAction.setTexture(stayTexture), wait, SKAction.setTexture(rightTexture), moveLeft, SKAction.setTexture(stayTexture), wait])
     run(SKAction.repeatForever(moveAction))
   }
   
@@ -60,7 +62,7 @@ class Elevator: SKSpriteNode {
     let moveRight = SKAction.moveTo(x: self.position.x, duration: TimeInterval(time))
     let wait = SKAction.wait(forDuration: 1)
     
-    let moveAction = SKAction.sequence([moveLeft, wait, moveRight, wait])
+    let moveAction = SKAction.sequence([SKAction.setTexture(rightTexture), moveLeft, SKAction.setTexture(stayTexture), wait, SKAction.setTexture(leftTexture), moveRight, SKAction.setTexture(stayTexture), wait])
     run(SKAction.repeatForever(moveAction))
   }
   

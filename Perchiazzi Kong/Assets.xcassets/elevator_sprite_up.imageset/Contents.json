@@ -2,7 +2,7 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "elevator_2.png",
+      "filename" : "elevator_sprite_up.png",
       "scale" : "1x"
     },
     {
