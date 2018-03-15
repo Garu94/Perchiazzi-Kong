@@ -23,8 +23,8 @@ class GameViewController: UIViewController {
             view.ignoresSiblingOrder = false
             view.showsFPS = true
             view.showsNodeCount = true
-            view.showsPhysics = true
-            
+//            view.showsPhysics = true
+          
             //Load textures atlas
             let playerAtlas = SKTextureAtlas(named: "Sprites")
             debugPrint(playerAtlas)

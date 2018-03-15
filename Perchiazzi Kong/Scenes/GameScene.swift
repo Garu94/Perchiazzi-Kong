@@ -32,27 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
 //
 //    //Perchiazzi-Kong Platform
 //    var platform2 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 175))
-//
-//    //Floor 1
-//    var platform3 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
-//    var platform4 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 180))
-//    var elevator1 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
-//    var platform5 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
-//    var elevator2 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
-//
-//    //Floor 2
-//    var platform6 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 75))
-//    var platform7 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 160))
-//    var platform8 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 40))
-//
-//    //Floor 3
-//    var platform9 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
-//    var platform10 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 180))
-//
-//    var platform11 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
-//
-//    var elevatorX = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
-//
+
   
     //Base Floof
     var baseElevator1 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
@@ -65,6 +45,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     var elevator2 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
     var platform2 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 104))
     var elevator3 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
+  
+    //Second Floor
+    var platform3 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 90))
+    var platform4 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 45))
+    var platform5 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 47))
+    var elevator4 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
+    var platform6 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 40))
+
+    //Third Floor
+    
+  
   
     var barrel1 = Barrel()
     var barrel2 = Barrel()
@@ -139,7 +130,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       platform2.simpleSetup(rotation: degreeToRadians(degree: 90 + 6), position: CGPoint(x: elevator2.position.x + elevator2.size.width + 57 + platform2.size.height/2, y: elevator2.position.y + elevator2.size.height/2))
       addChild(platform2)
       
-//      elevator3.setup(position: CGPoint(x: platform2., y: <#T##CGFloat#>))
+      elevator3.setup(position: CGPoint(x: platform2.position.x + platform2.size.height/2 + elevator3.size.width/2, y: platform2.position.y + elevator3.size.height/2))
+      elevator3.moveVertically(amountToMove: 80, time: 2)
+      addChild(elevator3)
+      
+      //MARK: Second Floor SETUP
+      platform3.simpleSetup(rotation: degreeToRadians(degree: 90 - 6), position: CGPoint(x: view.frame.maxX - platform3.size.height/2 - elevator3.size.width, y: elevator3.position.y + 85 + elevator3.size.height/2))
+      addChild(platform3)
+      
+      platform4.simpleSetup(rotation: degreeToRadians(degree: 90 - 6), position: CGPoint(x: platform3.position.x - platform3.size.height - platform4.size.width - 10, y: platform3.position.y + platform3.size.width ))
+      addChild(platform4)
+    
+      platform6.simpleSetup(rotation: degreeToRadians(degree: 90 - 6), position: CGPoint(x: platform6.size.height/2, y: 305))
+      addChild(platform6)
+      
+      elevator4.setup(position: CGPoint(x: platform6.position.x + platform6.size.height/2 + elevator4.size.width/2, y: platform6.position.y - elevator4.size.height/2 + 2))
+      elevator4.moveVertically(amountToMove: 90, time: 2)
+      addChild(elevator4)
+      
+      platform5.simpleSetup(rotation: degreeToRadians(degree: 90 - 6), position: CGPoint(x: elevator4.position.x + elevator4.size.width/2 + platform5.size.height/2, y: elevator4.position.y - elevator4.size.height/2 + 2))
+      addChild(platform5)
+      
+      //MARK: Third Floor SETUP
+      
+      
+      
       
         barrel1.setup(position: CGPoint(x: view.frame.minX + 400, y: view.frame.maxY))
 //        addChild(barrel1)
@@ -155,7 +170,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         addChild(mario)
 
         GameManager.shared.startTimer(label: hud.bonusLabel)
-        debugDrawPlayableArea()
+//        debugDrawPlayableArea()
     }
   
   func degreeToRadians(degree: CGFloat) -> CGFloat {
