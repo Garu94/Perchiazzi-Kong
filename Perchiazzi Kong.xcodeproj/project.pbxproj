@@ -28,6 +28,10 @@
 		FFCCD1AF2056C29900F5D573 /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCCD1AD2056C29900F5D573 /* HUD.swift */; };
 		FFCCD1B12056E2D300F5D573 /* Boss.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFCCD1B02056E2D300F5D573 /* Boss.swift */; };
 		FFCCD1B32056E35F00F5D573 /* Sprites.atlas in Resources */ = {isa = PBXBuildFile; fileRef = FFCCD1B22056E35F00F5D573 /* Sprites.atlas */; };
+		FFD6AE0C205AC0B0006FFBF1 /* ComicScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6AE0B205AC0B0006FFBF1 /* ComicScene.swift */; };
+		FFD6AE0E205AD617006FFBF1 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6AE0D205AD617006FFBF1 /* LaunchView.swift */; };
+		FFD6AE10205AD763006FFBF1 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD6AE0F205AD763006FFBF1 /* LaunchViewController.swift */; };
+		FFD6AE12205ADA4B006FFBF1 /* launch.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FFD6AE11205ADA4B006FFBF1 /* launch.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +79,10 @@
 		FFCCD1AD2056C29900F5D573 /* HUD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		FFCCD1B02056E2D300F5D573 /* Boss.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Boss.swift; sourceTree = "<group>"; };
 		FFCCD1B22056E35F00F5D573 /* Sprites.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Sprites.atlas; sourceTree = "<group>"; };
+		FFD6AE0B205AC0B0006FFBF1 /* ComicScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicScene.swift; sourceTree = "<group>"; };
+		FFD6AE0D205AD617006FFBF1 /* LaunchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
+		FFD6AE0F205AD763006FFBF1 /* LaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		FFD6AE11205ADA4B006FFBF1 /* launch.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = launch.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,8 +113,10 @@
 		FF255053205286A000DC06BD /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				FFD6AE0D205AD617006FFBF1 /* LaunchView.swift */,
 				FF5325F320514EFE00F498A1 /* GameViewController.swift */,
 				FF2550632052876400DC06BD /* GameManager.swift */,
+				FFD6AE0F205AD763006FFBF1 /* LaunchViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -118,6 +128,7 @@
 				FF37AE322057331900476518 /* MenuScene.swift */,
 				1C7456C22057CFDE00282B51 /* EndScene.swift */,
 				FF3A428C205AAA0F00B71C6B /* AnimationScene.swift */,
+				FFD6AE0B205AC0B0006FFBF1 /* ComicScene.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -159,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				FF3A428A205A999E00B71C6B /* Assets.xcassets */,
+				FFD6AE11205ADA4B006FFBF1 /* launch.xcassets */,
 				FFCCD1B22056E35F00F5D573 /* Sprites.atlas */,
 				1C7456BE2056E10700282B51 /* Pixeled.ttf */,
 				25A9E2B7205664AF0068B453 /* Constants.swift */,
@@ -302,6 +314,7 @@
 				FFCCD1B32056E35F00F5D573 /* Sprites.atlas in Resources */,
 				1C7456BF2056E10B00282B51 /* Pixeled.ttf in Resources */,
 				FF5325FC20514EFE00F498A1 /* LaunchScreen.storyboard in Resources */,
+				FFD6AE12205ADA4B006FFBF1 /* launch.xcassets in Resources */,
 				FF3A428B205A999E00B71C6B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -328,7 +341,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				25A9E2B8205664AF0068B453 /* Constants.swift in Sources */,
+				FFD6AE10205AD763006FFBF1 /* LaunchViewController.swift in Sources */,
+				FFD6AE0E205AD617006FFBF1 /* LaunchView.swift in Sources */,
 				FFCCD1AF2056C29900F5D573 /* HUD.swift in Sources */,
+				FFD6AE0C205AC0B0006FFBF1 /* ComicScene.swift in Sources */,
 				FF25505E205286FD00DC06BD /* Barrel.swift in Sources */,
 				25A9E2BC2056658E0068B453 /* Platform.swift in Sources */,
 				FF5325F220514EFE00F498A1 /* GameScene.swift in Sources */,

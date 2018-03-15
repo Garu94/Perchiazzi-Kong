@@ -7,11 +7,17 @@
 //
 
 import SpriteKit
+import AVKit
 
 class MenuScene: SKScene {
     
     override func didMove(to view: SKView) {
         backgroundColor = .black
+        
+//        let animationView = LauncView(frame: (self.view?.frame)!)
+//        self.view?.addSubview(animationView)
+        
+//        playVideo()
         
         let buttonStart = SKSpriteNode(texture: nil, color: .red, size: SpriteSize.button)
         buttonStart.name = "buttonStart"
@@ -41,7 +47,7 @@ class MenuScene: SKScene {
         }
         
         if touchedNode.name == "buttonStart" {
-            let scene = GameScene(size: size)
+            let scene = ComicScene(size: size)
             scene.scaleMode = scaleMode
             let transitionType = SKTransition.flipVertical(withDuration: 0.5)
             view?.presentScene(scene, transition: transitionType)
@@ -57,6 +63,16 @@ class MenuScene: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         self.touchUp(atPoint: touch.location(in: self))
+    }
+    
+    private func playVideo() {
+        guard let path = Bundle.main.path(forResource: "launch", ofType:"mov") else {
+            debugPrint("video.m4v not found")
+            return
+        }
+        let animation = AVPlayer(url: URL(fileURLWithPath: path))
+        
+        animation.play()
     }
     
 }

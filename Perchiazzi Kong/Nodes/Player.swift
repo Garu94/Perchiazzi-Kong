@@ -147,6 +147,7 @@ class Player: SKSpriteNode {
         let rotation = SKAction.rotate(byAngle: .pi/2, duration: 0.2)
         let continueRotation = SKAction.repeatForever(rotation)
         
+        GameManager.shared.life -= 1
          self.run(SKAction.sequence([dyingAnimation, continueRotation]))
         
     }

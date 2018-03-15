@@ -9,7 +9,18 @@
 import SpriteKit
 import GameplayKit
 
+
+
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
+    
+    var timerCounterBarrel = 0
+    
+    var timer1: Timer? {
+        willSet {
+            timer1?.invalidate()
+            timerCounterBarrel = 0
+        }
+    }
     
     let playableRect: CGRect
 
@@ -119,6 +130,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       addChild(baseElevator1)
       
       basePlatform1.setup(rotation: 0, xPosition: Float(baseElevator1.frame.width + basePlatform1.size.height/2), leftHeight: Float(hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + basePlatform1.size.width/2))
+        basePlatform1.texture = SKTexture(imageNamed: "basePlatform1")
       addChild(basePlatform1)
       
       baseElevator2.setup(position: CGPoint(x: basePlatform1.position.x + basePlatform1.size.height/2 + baseElevator2.size.width/2, y: hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + baseElevator2.frame.height/2))
@@ -126,11 +138,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       addChild(baseElevator2)
       
       basePlatform2.setup(rotation: 0, xPosition: Float(baseElevator2.position.x + baseElevator2.size.width + 65 + basePlatform2.size.height/2), leftHeight: Float(hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + basePlatform2.size.width/2))
+    basePlatform2.texture = SKTexture(imageNamed: "basePlatform2")
       addChild(basePlatform2)
       
       
       //MARK: First Floor SETUP
       platform1.simpleSetup(rotation: degreeToRadians(degree: 90 + 6), position: CGPoint(x: baseElevator1.position.x + baseElevator1.size.width/2 + platform1.size.height/2, y: baseElevator1.position.y + 85 + baseElevator1.size.height/2))
+        platform1.texture = SKTexture(imageNamed: "platform1")
       addChild(platform1)
       
       elevator2.zPosition = 200
@@ -139,6 +153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       addChild(elevator2)
       
       platform2.simpleSetup(rotation: degreeToRadians(degree: 90 + 6), position: CGPoint(x: elevator2.position.x + elevator2.size.width + 57 + platform2.size.height/2, y: elevator2.position.y + elevator2.size.height/2))
+        platform2.texture = SKTexture(imageNamed: "platform2")
       addChild(platform2)
       
       elevator3.setup(position: CGPoint(x: platform2.position.x + platform2.size.height/2 + elevator3.size.width/2, y: platform2.position.y + elevator3.size.height/2))
@@ -147,6 +162,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
       
       //MARK: Second Floor SETUP
       platform3.simpleSetup(rotation: degreeToRadians(degree: 90 - 6), position: CGPoint(x: view.frame.maxX - platform3.size.height/2 - elevator3.size.width, y: elevator3.position.y + 85 + elevator3.size.height/2))
+        platform3.texture = SKTexture(imageNamed: "platform3")
       addChild(platform3)
       
       platform4.simpleSetup(rotation: degreeToRadians(degree: 90 - 6), position: CGPoint(x: platform3.position.x - platform3.size.height - platform4.size.width - 10, y: platform3.position.y + platform3.size.width ))
@@ -204,6 +220,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         mario.setup(view: self.view!)
         addChild(mario)
 
+        startTimerForBarrel()
         GameManager.shared.startTimer(label: hud.bonusLabel)
 //        debugDrawPlayableArea()
     }
@@ -221,7 +238,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if (contact.bodyB.categoryBitMask == PhysicsMask.barrel) {
                 mario.die()
                 self.isUserInteractionEnabled = false
-                GameManager.shared.life -= 1
                 checkUltimateDeath()
             }
         }
@@ -244,7 +260,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         }
     }
     
+    func checkfallenDown() {
+        if mario.position.y <= playableRect.minY {
+            mario.die()
+            self.isUserInteractionEnabled = false
+            checkUltimateDeath()
+        }
+    }
     
+    func startTimerForBarrel() {
+        timer1 = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
+            self.timerCounterBarrel += 1
+            if self.timerCounterBarrel % 3 == 0 {
+                self.spawnBarrel()
+            }
+        })
+    }
+    
+    func spawnBarrel() {
+        let pos = CGPoint(x: self.kong.frame.maxX, y: self.kong.frame.minY)
+        kong.animate(type: "action")
+        let wait = SKAction.wait(forDuration: 0.8)
+        let spawn = SKAction.run {
+            let barrel = Barrel()
+            barrel.setup(position: pos)
+            self.addChild(barrel)
+//            barrel.physicsBody?.applyImpulse(CGVector(dx: 9.0, dy: 0.0))
+        }
+        let wait1 = SKAction.wait(forDuration: 0.4)
+        let stopAnimation = SKAction.run {
+            self.kong.animate(type: "angry")
+        }
+        self.run(SKAction.sequence([wait, spawn, wait1, stopAnimation]))
+    }
   
     
     override func update(_ currentTime: TimeInterval) {
@@ -262,6 +310,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if GameManager.shared.bonus == 0 {
             GameManager.shared.stopTimer()
         }
+        checkfallenDown()
     }
     
     func touchDown(atPoint pos: CGPoint) {
