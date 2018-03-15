@@ -35,12 +35,10 @@ class ComicScene: SKScene {
     
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches {
-            let scene = GameScene(size: size)
-            scene.scaleMode = scaleMode
-            let transitionType = SKTransition.flipVertical(withDuration: 0.5)
-            view?.presentScene(scene, transition: transitionType)
-        }
+        let scene = GameScene(size: size)
+        scene.scaleMode = scaleMode
+        let transitionType = SKTransition.flipVertical(withDuration: 0.5)
+        view?.presentScene(scene, transition: transitionType)
     }
     
 }

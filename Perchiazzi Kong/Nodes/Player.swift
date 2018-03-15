@@ -11,7 +11,7 @@ import SpriteKit
 class Player: SKSpriteNode {
     
     var textures: [String: [SKTexture]] = [:]
-    var velocity: CGFloat = 200
+    var velocity: CGFloat = 170
     var isJumping = false
     var orientation: CGFloat = 0.0
     var isOnLadder: Bool = false
@@ -53,8 +53,7 @@ class Player: SKSpriteNode {
 //        floor = SKPhysicsBody(edgeFrom: CGPoint(x: self.frame.minX, y: self.frame.minY), to: CGPoint(x: self.frame.maxX, y: self.frame.minY))
 //        floorNode.physicsBody = floor
 //        addChild(floorNode)
-        
-        
+    
         // Start Idle Animation
         self.animate(type: "idle")
     }
