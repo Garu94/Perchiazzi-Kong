@@ -26,7 +26,7 @@ class EndScene: SKScene {
         
         let wait = SKAction.wait(forDuration: 6.0)
         let block = SKAction.run {
-            let scene = MenuScene(size: self.frame.size)
+            let scene = ComicScene(size: self.frame.size)
             scene.scaleMode = .aspectFill
             let transitionType = SKTransition.flipHorizontal(withDuration: 0.5)
             self.view?.presentScene(scene, transition: transitionType)
