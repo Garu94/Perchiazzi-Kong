@@ -22,8 +22,9 @@ class GameManager {
     
     static let shared = GameManager()
     
+    let bonusString: String = "BONUS: "
     var score: Int = 0
-    var bonus: Int = 500
+    var bonus: Int = 4444
     var timerCounter: Int = 0
     var life: Int = 3
     
@@ -42,12 +43,11 @@ class GameManager {
     }
     
     func startTimer(label: SKLabelNode) {
-        
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
             self.timerCounter += 1
             if self.timerCounter % 2 == 0 {
                 self.bonus -= 100
-                label.text = "\(self.bonus)"
+                label.text = self.bonusString + "\(self.bonus)"
                 }
         })
     }

@@ -95,7 +95,7 @@ class Player: SKSpriteNode {
             return
         }
         isJumping = true
-        let deltaY: CGFloat = (SpriteSize.barrelRadious * 3) + (self.size.height / 2) 
+        let deltaY: CGFloat = (SpriteSize.barrelRadious * 2.5) + (self.size.height / 2)
         
         let startAction = SKAction.run {
             self.physicsBody?.affectedByGravity = false

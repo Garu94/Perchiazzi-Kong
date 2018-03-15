@@ -19,8 +19,9 @@ class EndScene: SKScene {
         backgroundColor = .black
         let gameoverLabel = SKLabelNode(fontNamed: HUDSettings.font)
         gameoverLabel.fontSize = 80
-        gameoverLabel.text = "Game Over"
-        gameoverLabel.position = CGPoint(x: size.width / 2, y: size.height / 2)
+        gameoverLabel.numberOfLines = 2
+        gameoverLabel.text = "Game\nOver"
+        gameoverLabel.position = CGPoint(x: view.frame.width / 2, y: view.frame.height / 2)
         addChild(gameoverLabel)
     }
     

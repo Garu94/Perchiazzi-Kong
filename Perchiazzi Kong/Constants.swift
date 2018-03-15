@@ -15,6 +15,7 @@ enum PhysicsMask {
     static let platform: UInt32 = 0x1 << 2    // 4
     static let barrel: UInt32 = 0x1 << 3     // 8
     static let ladder: UInt32 = 0x1 << 4  // 16
+    static let increaseScore: UInt32 = 0x1 << 5 //32
 }
 
 enum Z {
@@ -29,8 +30,8 @@ enum SpriteSize {
     static let ladder = CGSize(width: 15, height: 50)
     static let player = CGSize(width: 36, height: 47)
     static let button = CGSize(width: 60, height: 60)
-    static let enemy = CGSize(width: 128, height: 128)
-    
+    static let enemy = CGSize(width: 94, height: 68)
+    static let elevator = CGSize(width: 30, height: 12)
     static let barrelRadious: CGFloat = 12.0
 }
 

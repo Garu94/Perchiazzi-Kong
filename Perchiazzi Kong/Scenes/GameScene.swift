@@ -12,38 +12,46 @@ import GameplayKit
 class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate {
     
     let playableRect: CGRect
-    
+
     // Update Timer
     var lastTime: Double = 0.0
     var deltaTime: Double = 0.0
     
     //HUD
     let hud = HUD()
+    let pointString = "I: "
     
     //Movement
     var direction: Direction = Direction.stop
     //    var rightArrowIsPressed: Bool = false
     //    var leftArrowisPressed: Bool = false
     
-    //Mockup Scenario
-    var platform1 = Platform(texture: nil, color: .red, size: CGSize(width: 10, height: 200))
-    var platform2 = Platform(texture: nil, color: .green, size: CGSize(width: 10, height: 40))
+    //MARK: Declarations
+    //Princess Platform
+    var platform1 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
     
-    var platform3 = Platform(texture: nil, color: .yellow, size: CGSize(width: 10, height: 200))
+    //Perchiazzi-Kong Platform
+    var platform2 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 175))
     
-    var platform4 = Platform(texture: nil, color: .white , size: CGSize(width: 10, height: 100))
+    //Floor 1
+    var platform3 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
+    var platform4 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 180))
+    var elevator1 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
+    var platform5 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
+    var elevator2 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
     
-    var platform5 = Platform(texture: nil, color: .blue, size: CGSize(width: 10, height: 250))
+    //Floor 2
+    var platform6 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 75))
+    var platform7 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 160))
+    var platform8 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 40))
     
-    var platform6 = Platform(texture: nil, color: .cyan, size: CGSize(width: 10, height: 120))
+    //Floor 3
+    var platform9 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
+    var platform10 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 180))
     
-    var platform7 = Platform(texture: nil, color: .brown, size: CGSize(width: 10, height: 160))
+    var platform11 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
     
-    var platform8 = Platform(texture: nil, color: .orange, size: CGSize(width: 10, height: 275))
-    
-    var lastPlatform = Platform(texture: nil, color: .black, size: CGSize(width: 100, height: 500))
-    
-    var ladder1 = Ladder(texture: nil, color: .brown, size: SpriteSize.ladder)
+    var elevatorX = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
     
     var barrel1 = Barrel()
     var barrel2 = Barrel()
@@ -76,68 +84,68 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     override func didMove(to view: SKView) {
         backgroundColor = .gray
         
-        let space: CGFloat = 25
-        let distance: CGFloat = 50
+        let space: CGFloat = SpriteSize.elevator.width
+        let distance: CGFloat = 100
         
-        //ROSSA
-        platform1.setup(rotation: -0.01, xPosition: Float(platform1.size.height/2), leftHeight: Float(view.frame.maxY - 70))
+        //Princess Platform SETUP
+        platform1.setup(rotation: 0, xPosition: Float(view.frame.width - platform1.frame.height/2), leftHeight: Float(view.frame.maxY - 75))
+        
+        //Perchiazzi-Kong Platform SETUP
+        platform2.setup(rotation: 0, xPosition: Float(platform2.size.height/2), leftHeight: Float(view.frame.maxY - 155))
+        
+        //Floor 1 SETUP
+        platform3.setup(rotation: 0.08, xPosition: Float(view.frame.width - platform3.size.height/2), leftHeight: Float(platform2.position.y - distance))
+        
+        platform4.setup(rotation: 0.08, xPosition: Float(platform3.position.x - platform3.size.height/2 - space - platform4.size.height/2), leftHeight: Float(platform3.position.y - 28))
+        
+        elevator1.setup(position: CGPoint(x: platform1.position.x - platform1.size.height/2 - elevator1.size.width/2, y: platform1.position.y))
+        elevator1.move(amountToMove: 155)
+        
+        platform5.setup(rotation: 0.08, xPosition: Float(platform4.position.x - platform4.size.height/2 - space - platform5.size.height/2), leftHeight: Float(platform3.position.y - 28))
+        
+        elevator2.setup(position: CGPoint(x: platform5.position.x + platform5.size.height, y: platform5.position.y))
+        elevator2.move(amountToMove: 110)
+        
+        //Floor 2 SETUP
+        platform6.setup(rotation: -0.08, xPosition: Float(platform6.size.height/2), leftHeight: Float(platform5.position.y - distance))
+        
+        platform7.setup(rotation: -0.08, xPosition: Float(platform6.position.x + platform6.size.height/2 + space + platform7.size.height/2), leftHeight: Float(platform6.position.y))
+        
+        platform8.setup(rotation: -0.08, xPosition: Float(platform7.position.x + platform7.size.height/2 + space + platform8.size.height/2), leftHeight: Float(platform6.position.y))
+        
+        //Floor 3 SETUP
+        platform9.setup(rotation: 0.08, xPosition: Float(view.frame.width - platform9.size.height/2), leftHeight: Float(platform8.position.y - distance))
+        
+        platform10.setup(rotation: 0.08, xPosition: Float(platform9.position.x - platform9.size.height/2 - space - platform10.size.height/2), leftHeight: Float(platform9.position.y - 28))
+        
+        platform11.setup(rotation: 0.08, xPosition: Float(platform10.position.x - platform10.size.height/2 - space - platform11.size.height/2), leftHeight: Float(platform9.position.y - 28))
+        
+        //PROVE
+        let provaplatform = Platform(texture: nil, color: .green, size: CGSize(width: 12, height: 300))
+        provaplatform.setup(rotation: 0, xPosition: Float(view.frame.maxY - 500), leftHeight: 30)
+        addChild(provaplatform)
+        elevatorX.setup(position: CGPoint(x: platform11.position.x + platform11.size.height, y: platform11.position.y))
+        elevatorX.move(amountToMove: 200)
+        addChild(elevatorX)
+        
         addChild(platform1)
-        
-        //VERDE
-        platform2.setup(rotation: -(.pi/45), xPosition: Float(platform1.size.height + platform2.size.height/2), leftHeight: Float(platform1.position.y+13))
         addChild(platform2)
-        
-        //GIALLA
-        platform3.setup(rotation: 0.01, xPosition: Float(view.frame.width - platform3.size.height/2), leftHeight: Float(platform1.position.y - distance))
         addChild(platform3)
-        
-        //BIANCA
-        platform4.setup(rotation: 0.01, xPosition: Float(view.frame.width - platform3.size.height - platform4.size.height/2 - space), leftHeight: Float(platform1.position.y - distance))
         addChild(platform4)
-        
-        //BLU
-        platform5.setup(rotation: -0.01, xPosition: Float(platform5.size.height/2), leftHeight: Float(platform4.position.y - distance))
         addChild(platform5)
-        
-        //AZZURRA
-        platform6.setup(rotation: 0.01, xPosition: Float(view.frame.width - platform6.size.height/2), leftHeight: Float(platform5.position.y - distance))
         addChild(platform6)
-        
-        //MARRONE
-        platform7.setup(rotation: 0.01, xPosition: Float(view.frame.width - platform6.size.height - platform7.size.height/2 - space), leftHeight: Float(platform5.position.y - distance))
         addChild(platform7)
-        
-        //ARANCIONE
-        platform8.setup(rotation: -0.01, xPosition: Float(platform8.size.height/2), leftHeight: Float(platform7.position.y - distance))
         addChild(platform8)
+        addChild(platform9)
+        addChild(platform10)
+        addChild(platform11)
+        addChild(elevator1)
+        addChild(elevator2)
         
-        //NERA
-        lastPlatform.setup(rotation: 0, xPosition: Float(view.frame.width/2), leftHeight: 20)
-        addChild(lastPlatform)
-        
-        ladder1.setup(position: CGPoint(x: platform8.frame.width, y: platform8.frame.minY - ladder1.frame.height/2))
-        addChild(ladder1)
-        
-        barrel1.setup(position: CGPoint(x: view.frame.minX + 100, y: view.frame.maxY))
+        barrel1.setup(position: CGPoint(x: view.frame.minX + 400, y: view.frame.maxY))
         addChild(barrel1)
-        
-        
-        //Get multiple touches
-//        self.view?.isMultipleTouchEnabled = true
-//
-//        let tapGR = UITapGestureRecognizer(target: self, action: #selector(jumpOnSecondtouch))
-//        tapGR.delegate = self
-//        tapGR.numberOfTapsRequired = 2
-//        view.addGestureRecognizer(tapGR)
-        
-        //PAN GESTURE
-//        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(moveOnLadder))
-        
-        
-//        let longPressure = UILongPressGestureRecognizer(target: self, action: #selector(walk))
-//        longPressure.delegate = self
-//        longPressure.minimumPressDuration = 0.2
-//        view.addGestureRecognizer(longPressure)
+        barrel2.setup(position: CGPoint(x: view.frame.minX + 100, y: mario.position.y + 100))
+        addChild(barrel2)
         
         //Kong
         kong.setup(view: self.view!)
@@ -147,30 +155,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         mario.setup(view: self.view!)
         addChild(mario)
         
-        barrel2.setup(position: CGPoint(x: view.frame.minX + 100, y: mario.position.y + 100))
-        addChild(barrel2)
-        
         //HUD
         hud.setup(size: self.size)
         addChild(hud)
-        
-        ladder1.position = CGPoint(x: mario.position.x + 50, y: mario.position.y)
-        
+
         GameManager.shared.startTimer(label: hud.bonusLabel)
-        
         debugDrawPlayableArea()
     }
     
-//    @objc func jumpOnSecondtouch() {
-//        mario.jump()
-//    }
-    
-    //Physic Collision
+    //MARK: Physic Collision
     func didBegin(_ contact: SKPhysicsContact) {
-        //    debugPrint("bodyA: \(contact.bodyA.node!.name!)")
-        //    debugPrint("bodyB: \(contact.bodyB.node!.name!)")
-        
-        
+//            debugPrint("bodyA: \(contact.bodyA.node!.name!)")
+//            debugPrint("bodyB: \(contact.bodyB.node!.name!)")
         if (contact.bodyA.categoryBitMask == PhysicsMask.player) {
             
             if (contact.bodyB.categoryBitMask == PhysicsMask.barrel) {
@@ -181,17 +177,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         }
         
-        
-        
-//        if (contact.bodyA.categoryBitMask == PhysicsMask.ladder) {
-            //      debugPrint("ladder hit something")
-            
-            //Barrel hits ladder
-//            if (contact.bodyB.node!.name! == "barrel") {
-//                //        debugPrint("What? a barrel!")
-//                let barrel = contact.bodyB.node! as? Barrel
-//                barrel?.fall()
-//            }
     }
     
     func checkUltimateDeath() {
@@ -228,8 +213,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if GameManager.shared.bonus == 0 {
             GameManager.shared.stopTimer()
         }
-        //    checkCollisions()
-        checkBarrelProximity(playerFrame: mario.frame)
     }
     
     func touchDown(atPoint pos: CGPoint) {
@@ -256,8 +239,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func touchMove(toPoint pos: CGPoint) {
         let touchNode = self.atPoint(pos)
         if touchNode.name != "jump" {
-            debugPrint(mario.textures["run"])
-//            mario.animate(type: "run")
             if pos.x > (self.size.width / 2) {
                 direction = .right
                 return
@@ -299,50 +280,4 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             
         }
     }
-    
-    func checkBarrelProximity(playerFrame: CGRect) {
-        enumerateChildNodes(withName: "barrel") { barrel, stop in
-        let thresholdYDistance = 30 + barrel.frame.height + playerFrame.height
-        let yDistance = playerFrame.maxY - barrel.frame.minY
-            if barrel.frame.maxY <= playerFrame.minY && yDistance <= thresholdYDistance && self.mario.isJumping == true {
-                let thresholdXDistance = abs(CGFloat(barrel.frame.minX - playerFrame.minX))
-//                if playerFrame.minX <= barrel.frame.maxX
-            GameManager.shared.score += 10
-            self.hud.pointLabel.text = String(GameManager.shared.score)
-            }
-        }
-    }
-    
-    
-    func isOnLadder() -> Bool {
-        var isOnLadder: Bool = false
-        
-        enumerateChildNodes(withName: "ladder") { ladder, stop in
-            if ladder.frame.intersects(self.mario.frame) {
-                isOnLadder = true
-            }
-        }
-        return isOnLadder
-    }
-    
-    //Simple Collision
-    var isFallen = false
-    func checkCollisions() {
-        enumerateChildNodes(withName: "barrel") { barrel, stop in
-            self.enumerateChildNodes(withName: "ladder") { ladder, stop in
-                if !self.isFallen {
-                    if barrel.frame.intersects(ladder.frame) {
-                        debugPrint("intersected!")
-                        
-                        //          let fall = SKAction.move(to: CGPoint(x: 0, y:0), duration: 2.0)
-                        //          barrel.run(fall)
-                        barrel.position = CGPoint(x: barrel.position.x, y: barrel.position.y - 30)
-                        self.isFallen = true
-                    }
-                }
-                
-            }
-        }
-    }
-    
 }

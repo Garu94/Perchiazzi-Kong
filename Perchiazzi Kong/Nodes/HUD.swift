@@ -10,7 +10,7 @@ import SpriteKit
 
 enum HUDSettings {
     static let font = "Pixeled"
-    static let fontSize: CGFloat = 10
+    static let fontSize: CGFloat = 9
 }
 
 class HUD: SKNode {
@@ -20,7 +20,7 @@ class HUD: SKNode {
 //    let rightArrow = SKSpriteNode(texture: nil, color: .red, size: SpriteSize.button)
     var pointLabel = SKLabelNode(fontNamed: HUDSettings.font)//saltare barile e non morire
     var topLabel = SKLabelNode(fontNamed: HUDSettings.font)
-    var leftLifeLabel = SKLabelNode(fontNamed: HUDSettings.font) //3-> barrel
+    var lifeLabel = SKLabelNode(fontNamed: HUDSettings.font) //3-> barrel
     var bonusLabel = SKLabelNode(fontNamed: HUDSettings.font) //5000
     var levelLabel = SKLabelNode(fontNamed: HUDSettings.font) //1
     let bonusFixedLabel = SKLabelNode(fontNamed: HUDSettings.font)
@@ -31,7 +31,7 @@ class HUD: SKNode {
         super.init()
         self.name = "HUD"
         
-        pointLabel.text = "I" + String(GameManager.shared.score)
+        pointLabel.text = "SCORE: " + String(GameManager.shared.score)
         pointLabel.zPosition = 100
         pointLabel.fontSize = HUDSettings.fontSize
         
@@ -43,23 +43,23 @@ class HUD: SKNode {
         bonusFixedLabel.zPosition = 100
         bonusFixedLabel.fontSize = HUDSettings.fontSize
         
-        lifeFixedLabel.text = "L"
-        lifeFixedLabel.zPosition = 100
-        lifeFixedLabel.fontSize = HUDSettings.fontSize
+//        lifeFixedLabel.text = "L"
+//        lifeFixedLabel.zPosition = 100
+//        lifeFixedLabel.fontSize = HUDSettings.fontSize
         
         nameFixedLabel.text = "D"
         nameFixedLabel.zPosition = 100
         nameFixedLabel.fontSize = HUDSettings.fontSize
         
-        leftLifeLabel.text = String(GameManager.shared.life)
-        leftLifeLabel.zPosition = 100
-        leftLifeLabel.fontSize = HUDSettings.fontSize
+        lifeLabel.text = "LIVES: " + String(GameManager.shared.life)
+        lifeLabel.zPosition = 100
+        lifeLabel.fontSize = HUDSettings.fontSize
         
-        bonusLabel.text = String(GameManager.shared.bonus)
+        bonusLabel.text = "BONUS: " + String(GameManager.shared.bonus)
         bonusLabel.zPosition = 100
         bonusLabel.fontSize = HUDSettings.fontSize
         
-        levelLabel.text = "1"
+        levelLabel.text = "LEVEL: 1"
         levelLabel.zPosition = 100
         levelLabel.fontSize = HUDSettings.fontSize
         
@@ -73,7 +73,7 @@ class HUD: SKNode {
     }
     
     func setup(size: CGSize) {
-        let spacing: CGFloat = 10
+        let spacing: CGFloat = 5
         
         pointLabel.position = CGPoint(x: spacing + pointLabel.frame.width/2, y: size.height - pointLabel.frame.height - spacing)
         addChild(pointLabel)
@@ -81,32 +81,28 @@ class HUD: SKNode {
         topLabel.position = CGPoint(x: size.width - spacing - topLabel.frame.width/2, y: size.height - topLabel.frame.height - spacing)
         addChild(topLabel)
         
-        lifeFixedLabel.position = CGPoint(x: size.width - spacing - leftLifeLabel.frame.width/2, y: size.height - topLabel.frame.height - 2*spacing - lifeFixedLabel.frame.height)
-        addChild(lifeFixedLabel)
 //        leftLifeLabel.lineBreakMode = .byWordWrapping
 //        leftLifeLabel.numberOfLines = 2
             
             
-        leftLifeLabel.position = CGPoint(x: size.width - spacing - leftLifeLabel.frame.width/2, y: size.height - topLabel.frame.height - 2*spacing - lifeFixedLabel.frame.height - leftLifeLabel.frame.height)
-        addChild(leftLifeLabel)
         
-        bonusFixedLabel.position = CGPoint(x: size.width - 2*spacing - lifeFixedLabel.frame.width - bonusFixedLabel.frame.width/2, y: size.height - topLabel.frame.height - 2*spacing - lifeFixedLabel.frame.height)
-        addChild(bonusFixedLabel)
+//        bonusFixedLabel.position = CGPoint(x: size.width - 2*spacing - lifeFixedLabel.frame.width - bonusFixedLabel.frame.width/2, y: size.height - topLabel.frame.height - 2*spacing - lifeFixedLabel.frame.height)
+//        addChild(bonusFixedLabel)
         
         
 //        bonusLabel.lineBreakMode = .byWordWrapping
 //        bonusLabel.numberOfLines = 2
         
-        bonusLabel.position = CGPoint(x: size.width - 2*spacing - leftLifeLabel.frame.width - bonusLabel.frame.width/2, y: size.height - topLabel.frame.height - 2*spacing - lifeFixedLabel.frame.height - leftLifeLabel.frame.height)
+        bonusLabel.position = CGPoint(x: size.width / 2, y: pointLabel.position.y)
         
         bonusLabel.horizontalAlignmentMode = .center
         addChild(bonusLabel)
         
-//        levelLabel.lineBreakMode = .byWordWrapping
-//        levelLabel.numberOfLines = 2
+        lifeLabel.position = CGPoint(x: size.width / 2, y: bonusLabel.position.y - lifeLabel.frame.size.height)
+        addChild(lifeLabel)
 
         
-        levelLabel.position = CGPoint(x: bonusFixedLabel.position.x - bonusFixedLabel.frame.width, y: bonusLabel.position.y)
+        levelLabel.position = CGPoint(x: spacing + levelLabel.frame.width / 2, y: pointLabel.position.y -  bonusLabel.frame.height)
         addChild(levelLabel)
         
         nameFixedLabel.position = CGPoint(x: levelLabel.position.x, y: bonusFixedLabel.position.y)
@@ -115,9 +111,6 @@ class HUD: SKNode {
         self.jumpButton.position = CGPoint(x: spacing, y: spacing)
         jumpButton.size.width = size.width - (spacing * 2)
         self.addChild(jumpButton)
-//        let xRightArrow = size.width - spacing - rightArrow.size.width
-//        self.rightArrow.position = CGPoint(x: xRightArrow, y: spacing)
-//        self.addChild(rightArrow)
     }
     
     

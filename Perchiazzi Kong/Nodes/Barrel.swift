@@ -14,6 +14,8 @@ var falling = false
 
 class Barrel: SKSpriteNode {
     
+//    var collisionScoreCollider: SKSpriteNode?
+    
     //MARK: init
     init() {
         //    super.init(texture: nil, color: .yellow, size: CGSize(width: 12, height: 12))
@@ -21,6 +23,8 @@ class Barrel: SKSpriteNode {
         super.init(texture: texture, color: .clear, size: SpriteSize.barrel)
         name = "barrel"
         self.texture?.filteringMode = .nearest
+        
+//        collisionScoreCollider = SKSpriteNode(texture: nil, color: .clear, size: self.size)
         
         // Physics
         self.physicsBody = SKPhysicsBody(circleOfRadius: SpriteSize.barrelRadious)
@@ -32,6 +36,20 @@ class Barrel: SKSpriteNode {
         self.physicsBody!.categoryBitMask = PhysicsMask.barrel
         self.physicsBody!.contactTestBitMask = PhysicsMask.platform | PhysicsMask.ladder | PhysicsMask.player
 //        self.physicsBody?.collisionBitMask = PhysicsMask.player | PhysicsMask.platform
+        
+//        //Increase Point Collider
+//        collisionScoreCollider?.name = "increaseScore"
+//        collisionScoreCollider?.zPosition = Z.sprites
+//        collisionScoreCollider?.position = CGPoint(x: self.position.x, y: (self.position.y + SpriteSize.barrel.height))
+//        collisionScoreCollider?.physicsBody = SKPhysicsBody(circleOfRadius: SpriteSize.barrelRadious)
+//        collisionScoreCollider?.physicsBody?.affectedByGravity = true
+//        collisionScoreCollider?.physicsBody?.isDynamic = true
+//        collisionScoreCollider?.physicsBody?.categoryBitMask = PhysicsMask.increaseScore
+//        collisionScoreCollider?.physicsBody?.contactTestBitMask = PhysicsMask.player
+        
+       
+    
+//        self.addChild(collisionScoreCollider!)
     }
     
     required init?(coder aDecoder: NSCoder) {
