@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "stefaniaFloor.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "stefaniaFloor.png",
       "scale" : "2x"
     },
     {
