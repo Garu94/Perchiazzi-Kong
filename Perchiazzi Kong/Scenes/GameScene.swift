@@ -27,32 +27,42 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     //    var leftArrowisPressed: Bool = false
     
     //MARK: Declarations
-    //Princess Platform
-    var platform1 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
-    
-    //Perchiazzi-Kong Platform
-    var platform2 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 175))
-    
-    //Floor 1
-    var platform3 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
-    var platform4 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 180))
-    var elevator1 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
-    var platform5 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
-    var elevator2 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
-    
-    //Floor 2
-    var platform6 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 75))
-    var platform7 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 160))
-    var platform8 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 40))
-    
-    //Floor 3
-    var platform9 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
-    var platform10 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 180))
-    
-    var platform11 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
-    
-    var elevatorX = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
-    
+//    //Princess Platform
+//    var platform1 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
+//
+//    //Perchiazzi-Kong Platform
+//    var platform2 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 175))
+//
+//    //Floor 1
+//    var platform3 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
+//    var platform4 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 180))
+//    var elevator1 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
+//    var platform5 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
+//    var elevator2 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
+//
+//    //Floor 2
+//    var platform6 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 75))
+//    var platform7 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 160))
+//    var platform8 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 40))
+//
+//    //Floor 3
+//    var platform9 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
+//    var platform10 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 180))
+//
+//    var platform11 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
+//
+//    var elevatorX = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
+//
+  
+    //Base Floof
+    var baseElevator1 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
+    var basePlatform1 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 105))
+    var baseElevator2 = Elevator(texture: nil, color: .yellow, size: SpriteSize.elevator)
+    var basePlatform2 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 128))
+  
+    //First Floor
+    var platform1 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 110))
+  
     var barrel1 = Barrel()
     var barrel2 = Barrel()
     //player
@@ -87,66 +97,71 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let space: CGFloat = SpriteSize.elevator.width
         let distance: CGFloat = 100
         
-        //Princess Platform SETUP
-        platform1.setup(rotation: 0, xPosition: Float(view.frame.width - platform1.frame.height/2), leftHeight: Float(view.frame.maxY - 75))
-        
-        //Perchiazzi-Kong Platform SETUP
-        platform2.setup(rotation: 0, xPosition: Float(platform2.size.height/2), leftHeight: Float(view.frame.maxY - 155))
-        
-        //Floor 1 SETUP
-        platform3.setup(rotation: 0.08, xPosition: Float(view.frame.width - platform3.size.height/2), leftHeight: Float(platform2.position.y - distance))
-        
-        platform4.setup(rotation: 0.08, xPosition: Float(platform3.position.x - platform3.size.height/2 - space - platform4.size.height/2), leftHeight: Float(platform3.position.y - 28))
-        
-        elevator1.setup(position: CGPoint(x: platform1.position.x - platform1.size.height/2 - elevator1.size.width/2, y: platform1.position.y))
-        elevator1.move(amountToMove: 155)
-        
-        platform5.setup(rotation: 0.08, xPosition: Float(platform4.position.x - platform4.size.height/2 - space - platform5.size.height/2), leftHeight: Float(platform3.position.y - 28))
-        
-        elevator2.setup(position: CGPoint(x: platform5.position.x + platform5.size.height, y: platform5.position.y))
-        elevator2.move(amountToMove: 110)
-        
-        //Floor 2 SETUP
-        platform6.setup(rotation: -0.08, xPosition: Float(platform6.size.height/2), leftHeight: Float(platform5.position.y - distance))
-        
-        platform7.setup(rotation: -0.08, xPosition: Float(platform6.position.x + platform6.size.height/2 + space + platform7.size.height/2), leftHeight: Float(platform6.position.y))
-        
-        platform8.setup(rotation: -0.08, xPosition: Float(platform7.position.x + platform7.size.height/2 + space + platform8.size.height/2), leftHeight: Float(platform6.position.y))
-        
-        //Floor 3 SETUP
-        platform9.setup(rotation: 0.08, xPosition: Float(view.frame.width - platform9.size.height/2), leftHeight: Float(platform8.position.y - distance))
-        
-        platform10.setup(rotation: 0.08, xPosition: Float(platform9.position.x - platform9.size.height/2 - space - platform10.size.height/2), leftHeight: Float(platform9.position.y - 28))
-        
-        platform11.setup(rotation: 0.08, xPosition: Float(platform10.position.x - platform10.size.height/2 - space - platform11.size.height/2), leftHeight: Float(platform9.position.y - 28))
-        
-        //PROVE
-        let provaplatform = Platform(texture: nil, color: .green, size: CGSize(width: 12, height: 300))
-        provaplatform.setup(rotation: 0, xPosition: Float(view.frame.maxY - 500), leftHeight: 30)
-        addChild(provaplatform)
-        elevatorX.setup(position: CGPoint(x: platform11.position.x + platform11.size.height, y: platform11.position.y))
-        elevatorX.move(amountToMove: 200)
-        addChild(elevatorX)
-        
-        addChild(platform1)
-        addChild(platform2)
-        addChild(platform3)
-        addChild(platform4)
-        addChild(platform5)
-        addChild(platform6)
-        addChild(platform7)
-        addChild(platform8)
-        addChild(platform9)
-        addChild(platform10)
-        addChild(platform11)
-        addChild(elevator1)
-        addChild(elevator2)
+//        //Princess Platform SETUP
+//        platform1.setup(rotation: 0, xPosition: Float(view.frame.width - platform1.frame.height/2), leftHeight: Float(view.frame.maxY - 75))
+//
+//        //Perchiazzi-Kong Platform SETUP
+//        platform2.setup(rotation: 0, xPosition: Float(platform2.size.height/2), leftHeight: Float(view.frame.maxY - 155))
+//
+//        //Floor 1 SETUP
+//        platform3.setup(rotation: 0.08, xPosition: Float(view.frame.width - platform3.size.height/2), leftHeight: Float(platform2.position.y - distance))
+//
+//        platform4.setup(rotation: 0.08, xPosition: Float(platform3.position.x - platform3.size.height/2 - space - platform4.size.height/2), leftHeight: Float(platform3.position.y - 28))
+//
+//        elevator1.setup(position: CGPoint(x: platform1.position.x - platform1.size.height/2 - elevator1.size.width/2, y: platform1.position.y))
+//        elevator1.move(amountToMove: 155)
+//
+//        platform5.setup(rotation: 0.08, xPosition: Float(platform4.position.x - platform4.size.height/2 - space - platform5.size.height/2), leftHeight: Float(platform3.position.y - 28))
+//
+//        elevator2.setup(position: CGPoint(x: platform5.position.x + platform5.size.height, y: platform5.position.y))
+//        elevator2.move(amountToMove: 110)
+      
+//        //Floor 2 SETUP
+//        platform6.setup(rotation: -0.08, xPosition: Float(platform6.size.height/2), leftHeight: Float(platform5.position.y - distance))
+//        
+//        platform7.setup(rotation: -0.08, xPosition: Float(platform6.position.x + platform6.size.height/2 + space + platform7.size.height/2), leftHeight: Float(platform6.position.y))
+//        
+//        platform8.setup(rotation: -0.08, xPosition: Float(platform7.position.x + platform7.size.height/2 + space + platform8.size.height/2), leftHeight: Float(platform6.position.y))
+//        
+//        //Floor 3 SETUP
+//        platform9.setup(rotation: 0.08, xPosition: Float(view.frame.width - platform9.size.height/2), leftHeight: Float(platform8.position.y - distance))
+//        
+//        platform10.setup(rotation: 0.08, xPosition: Float(platform9.position.x - platform9.size.height/2 - space - platform10.size.height/2), leftHeight: Float(platform9.position.y - 28))
+//        
+//        platform11.setup(rotation: 0.08, xPosition: Float(platform10.position.x - platform10.size.height/2 - space - platform11.size.height/2), leftHeight: Float(platform9.position.y - 28))
+//        
+    
+
+      //MARK: HUD SETUP
+      hud.setup(size: self.size)
+      addChild(hud)
+      
+      //MARK: Base Floor SETUP
+      baseElevator1.setup(position: CGPoint(x: baseElevator1.size.width/2, y: hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + baseElevator1.frame.height/2))
+      baseElevator1.moveVertically(amountToMove: 80, time: 2)
+      addChild(baseElevator1)
+      
+      basePlatform1.setup(rotation: 0, xPosition: Float(baseElevator1.frame.width + basePlatform1.size.height/2), leftHeight: Float(hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + basePlatform1.size.width/2))
+      addChild(basePlatform1)
+      
+      baseElevator2.setup(position: CGPoint(x: basePlatform1.position.x + basePlatform1.size.height/2 + baseElevator2.size.width/2, y: hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + baseElevator2.frame.height/2))
+      baseElevator2.moveHorizontally(amountToMove: 65, time: 2)
+      addChild(baseElevator2)
+      
+      basePlatform2.setup(rotation: 0, xPosition: Float(baseElevator2.position.x + baseElevator2.size.width + 65 + basePlatform2.size.height/2), leftHeight: Float(hud.jumpButton.position.y + hud.jumpButton.size.height + 5 + basePlatform2.size.width/2))
+      addChild(basePlatform2)
+      
+      
+      //MARK: First Floor SETUP
+      platform1.simpleSetup(rotation: degreeToRadians(degree: 90), position: CGPoint(x: baseElevator1.position.x + baseElevator1.size.width/2, y: baseElevator1.position.y + 80))
+      addChild(platform1)
+      
         
         barrel1.setup(position: CGPoint(x: view.frame.minX + 400, y: view.frame.maxY))
-        addChild(barrel1)
+//        addChild(barrel1)
         barrel2.setup(position: CGPoint(x: view.frame.minX + 100, y: mario.position.y + 100))
-        addChild(barrel2)
-        
+//        addChild(barrel2)
+      
         //Kong
         kong.setup(view: self.view!)
         addChild(kong)
@@ -154,15 +169,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         //Player
         mario.setup(view: self.view!)
         addChild(mario)
-        
-        //HUD
-        hud.setup(size: self.size)
-        addChild(hud)
 
         GameManager.shared.startTimer(label: hud.bonusLabel)
         debugDrawPlayableArea()
     }
-    
+  
+  func degreeToRadians(degree: CGFloat) -> CGFloat {
+    return (degree * .pi)/180
+  }
+  
     //MARK: Physic Collision
     func didBegin(_ contact: SKPhysicsContact) {
 //            debugPrint("bodyA: \(contact.bodyA.node!.name!)")

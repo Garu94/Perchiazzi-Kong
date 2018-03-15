@@ -42,7 +42,7 @@ class Player: SKSpriteNode {
     }
     
     func setup(view: SKView) {
-        self.position = CGPoint(x: view.frame.midX, y: view.frame.maxY - 550)
+        self.position = CGPoint(x: view.frame.midX+150, y: view.frame.maxY - 550)
         
         self.zPosition = Z.sprites
 //        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
