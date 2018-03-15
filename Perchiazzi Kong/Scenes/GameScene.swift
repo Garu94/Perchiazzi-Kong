@@ -72,8 +72,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   var bonusPlatform1 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
   var bonusPlatform2 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
   var bonusPlatform3 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 60))
-  var bonusPlatform4 = Platform(texture: nil, color: .blue, size: CGSize(width: 12, height: 35))
-  
+    
   //player
   let mario = Player()
   let kong = Boss()
@@ -150,9 +149,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     addChild(platform3)
     
     platform4.simpleSetup(rotation: degreeToRadians(degree: 90 - 6), position: CGPoint(x: platform3.position.x - platform3.size.height - platform4.size.width - 10, y: platform3.position.y + platform3.size.width ))
+    platform4.texture = SKTexture(imageNamed: "platform4")
     addChild(platform4)
     
     platform6.simpleSetup(rotation: degreeToRadians(degree: 90 - 6), position: CGPoint(x: platform6.size.height/2, y: 305))
+    platform6.texture = SKTexture(imageNamed: "platform6")
     addChild(platform6)
     
     elevator4.setup(position: CGPoint(x: platform6.position.x + platform6.size.height/2 + elevator4.size.width/2, y: platform6.position.y - elevator4.size.height/2 + 2))
@@ -160,10 +161,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     addChild(elevator4)
     
     platform5.simpleSetup(rotation: degreeToRadians(degree: 90 - 6), position: CGPoint(x: elevator4.position.x + elevator4.size.width/2 + platform5.size.height/2, y: elevator4.position.y - elevator4.size.height/2 + 2))
+    platform5.texture = SKTexture(imageNamed: "platform5")
     addChild(platform5)
     
     //MARK: Third Floor SETUP
     platform7.simpleSetup(rotation: degreeToRadians(degree: 90 + 6), position: CGPoint(x: elevator4.position.x + elevator4.size.width/2 + platform7.size.height/2, y: elevator4.position.y + 95 + elevator4.size.height))
+    platform7.texture = SKTexture(imageNamed: "platform7")
     addChild(platform7)
     
     elevator5.setup(position: CGPoint(x: platform7.position.x + platform7.size.height/2 + elevator5.size.width/2, y: platform7.position.y + elevator5.size.height))
@@ -171,24 +174,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     addChild(elevator5)
     
     platform8.simpleSetup(rotation: degreeToRadians(degree: 90 + 6), position: CGPoint(x: elevator5.position.x + elevator5.size.width/2 + platform8.size.height/2, y: elevator5.position.y + elevator5.size.height/2))
+    platform8.texture = SKTexture(imageNamed: "platform8")
     addChild(platform8)
     
     //MARK: Stefania Floor SETUP
     stefaniaPlatform.simpleSetup(rotation: degreeToRadians(degree: 90), position: CGPoint(x: view.frame.width - stefaniaPlatform.size.height/2, y: elevator5.position.y + 160 + elevator5.size.height/2))
+    stefaniaPlatform.texture = SKTexture(imageNamed: "stefaniaFloor")
     addChild(stefaniaPlatform)
     
     //MARK: Perchiazzi-Kong Floor SETUP
     kongPlatform.simpleSetup(rotation: degreeToRadians(degree: 90), position: CGPoint(x: kongPlatform.size.height/2, y: stefaniaPlatform.position.y - 37))
+    kongPlatform.texture = SKTexture(imageNamed: "kongPlatform")
     addChild(kongPlatform)
     
     //MARK: Bonus Floor SETUP
     bonusPlatform1.simpleSetup(rotation: degreeToRadians(degree: 90), position: CGPoint(x: bonusPlatform1.size.height/2 + 113, y: kongPlatform.position.y - 70))
+    bonusPlatform1.texture = SKTexture(imageNamed: "bonusPlatform1")
     addChild(bonusPlatform1)
     
     bonusPlatform2.simpleSetup(rotation: degreeToRadians(degree: 90 + 10), position: CGPoint(x: bonusPlatform1.position.x + bonusPlatform1.size.height/2 + bonusPlatform2.size.height/2, y: bonusPlatform1.position.y + bonusPlatform1.size.width/2 - 1))
+    bonusPlatform2.texture = SKTexture(imageNamed: "bonusPlatform2")
     addChild(bonusPlatform2)
     
     bonusPlatform3.simpleSetup(rotation: degreeToRadians(degree: 90 - 10), position: CGPoint(x: bonusPlatform2.position.x + bonusPlatform2.size.height/2 + bonusPlatform3.size.height/2, y: bonusPlatform1.position.y + bonusPlatform1.size.width/2 - 1))
+    bonusPlatform3.texture = SKTexture(imageNamed: "bonusPlatform2")
     addChild(bonusPlatform3)
     
     //MARK: Kong SETUP
