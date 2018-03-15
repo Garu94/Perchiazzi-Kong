@@ -286,7 +286,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
   func startTimerForBarrel() {
     timer1 = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
       self.timerCounterBarrel += 1
-      if self.timerCounterBarrel % 3 == 0 {
+      if self.timerCounterBarrel % 5 == 0 {
         self.spawnBarrel()
       }
     })
