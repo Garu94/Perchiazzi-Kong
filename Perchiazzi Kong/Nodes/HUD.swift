@@ -66,6 +66,7 @@ class HUD: SKNode {
         jumpButton.name = "jump"
         jumpButton.anchorPoint = CGPoint.zero
         jumpButton.zPosition = Z.HUD
+        jumpButton.texture = SKTexture(imageNamed: "jump_button")
         
 //        rightArrow.name = "rightArrow"
 //        rightArrow.anchorPoint = CGPoint.zero
