@@ -74,7 +74,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     //Decorations
     let barrelPack = SKSpriteNode(imageNamed: "barrel_pack")
     let singleBarrel = SKSpriteNode(imageNamed: "barrel_single")
-    let background = SKSpriteNode(imageNamed: "background_temporary")
+    let background = SKSpriteNode(imageNamed: "background_scene")
     
     //player
     let mario = Player()
@@ -296,7 +296,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func startTimerForBarrel() {
         timer1 = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
             self.timerCounterBarrel += 1
-            if self.timerCounterBarrel % 5000 == 0 {
+            if self.timerCounterBarrel % 5 == 0 {
                 self.spawnBarrel()
             }
         })
