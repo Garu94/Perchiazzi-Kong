@@ -68,6 +68,9 @@ class HUD: SKNode {
         jumpButton.zPosition = Z.HUD
         jumpButton.texture = SKTexture(imageNamed: "jump_button")
         
+        let top = UserDefaults.standard.string(forKey: "topScore")
+        topLabel.text = "TOP: " + top!
+        
 //        rightArrow.name = "rightArrow"
 //        rightArrow.anchorPoint = CGPoint.zero
 //        rightArrow.zPosition = Z.HUD
