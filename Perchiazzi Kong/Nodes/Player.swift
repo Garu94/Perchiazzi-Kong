@@ -147,7 +147,7 @@ class Player: SKSpriteNode {
         
         GameManager.shared.life -= 1
          self.run(SKAction.sequence([dyingAnimation, continueRotation]))
-        
+
     }
 
     func animate(type: String) {

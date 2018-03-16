@@ -75,7 +75,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     let barrelPack = SKSpriteNode(imageNamed: "barrel_pack")
     let singleBarrel = SKSpriteNode(imageNamed: "barrel_single")
     let background = SKSpriteNode(imageNamed: "background_scene")
-    
+    let iPhone = SKSpriteNode(imageNamed: "iPhone_1x")
+  
+    func setupiPhone() {
+      iPhone.position = CGPoint(x: bonusPlatform1.position.x, y: bonusPlatform1.position.y + bonusPlatform1.size.width/2 + iPhone.size.height/2 + 3)
+      let moveUp = SKAction.moveTo(y: iPhone.position.y + 8.0, duration: 0.7)
+      let moveDown = SKAction.moveTo(y: iPhone.position.y, duration: 0.7)
+      let animation = SKAction.sequence([moveUp, moveDown])
+      addChild(iPhone)
+      iPhone.run(SKAction.repeatForever(animation))
+  }
+
     //player
     let mario = Player()
     let kong = Boss()
@@ -227,6 +237,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         //MARK: Princess SETUP
         princess.setup(view: self.view!)
         addChild(princess)
+      
+      //MARK: iPhone SETUP
+        setupiPhone()
         
         startTimerForBarrel()
         GameManager.shared.startTimer(label: hud.bonusLabel)
@@ -249,6 +262,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if (contact.bodyB.categoryBitMask == PhysicsMask.barrel) {
                 let marioAnimation = SKAction.run {
                     self.mario.die()
+                  self.backgroundMusicPlayer.stop()
                 }
                 let wait = SKAction.wait(forDuration: 1)
                 let checkDeath = SKAction.run {
@@ -266,6 +280,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         //        }
         //    }
     }
+  
+  func checkCollisioniPhone() {
+    if mario.intersects(iPhone) {
+      debugPrint("BONUS!")
+      iPhone.removeFromParent()
+      GameManager.shared.score += 1000
+      let bonusAnimation = SKAction.sequence([SKAction.colorize(with: .yellow, colorBlendFactor: 1, duration: 0.2), SKAction.colorize(with: .clear, colorBlendFactor: 0, duration: 0.2)])
+//      mario.run(SKAction.repeat(bonusAnimation, count: 2))
+      
+    }
+  }
     
     func checkUltimateDeath() {
         backgroundMusicPlayer.stop()
@@ -297,7 +322,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         timer1 = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
             self.timerCounterBarrel += 1
             if self.timerCounterBarrel % 5 == 0 {
-                self.spawnBarrel()
+//                self.spawnBarrel()
             }
         })
     }
@@ -385,6 +410,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         checkBorderCollisionBarrel()
         checkPrincessCollision()
         checkDespawnBarrel()
+        checkCollisioniPhone()
     }
     
     let darioXVelocity = 150
