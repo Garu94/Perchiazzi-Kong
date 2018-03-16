@@ -244,9 +244,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             //        }
             
             if (contact.bodyB.categoryBitMask == PhysicsMask.barrel) {
-                mario.die()
+                let marioAnimation = SKAction.run {
+                    self.mario.die()
+                }
+                let wait = SKAction.wait(forDuration: 1)
+                let checkDeath = SKAction.run {
+                    self.checkUltimateDeath()
+                }
+                self.run(SKAction.sequence([marioAnimation, wait, checkDeath]))
                 self.isUserInteractionEnabled = false
-                checkUltimateDeath()
+//                checkUltimateDeath()
             }
         }
         //    else if contact.bodyB.categoryBitMask == PhysicsMask.player {
@@ -285,7 +292,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func startTimerForBarrel() {
         timer1 = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
             self.timerCounterBarrel += 1
-            if self.timerCounterBarrel % 5 == 0 {
+            if self.timerCounterBarrel % 5000 == 0 {
                 self.spawnBarrel()
             }
         })
@@ -445,6 +452,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let winScene = EndScene(size: self.size, won: true)
         winScene.scaleMode = scaleMode
         checkMaxScore()
-        view?.presentScene(winScene)
+        
+        let princessAnimation = SKAction.run {
+            self.princess.reachedByPlayer()
+        }
+        let marioAnimation = SKAction.run {
+            self.mario.animate(type: "win")
+        }
+        let present = SKAction.run {
+            self.view?.presentScene(winScene)
+        }
+        let group = SKAction.group([princessAnimation, marioAnimation])
+        let wait = SKAction.wait(forDuration: 1)
+        let sequence = SKAction.sequence([group, wait, present])
+        self.run(sequence)
     }
 }

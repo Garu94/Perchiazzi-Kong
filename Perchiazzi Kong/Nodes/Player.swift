@@ -47,7 +47,7 @@ class Player: SKSpriteNode {
         self.physicsBody!.affectedByGravity = true
         self.physicsBody!.categoryBitMask = PhysicsMask.player
         self.physicsBody!.contactTestBitMask = PhysicsMask.barrel | PhysicsMask.elevator
-//        self.physicsBody?.collisionBitMask = PhysicsMask.ladder | PhysicsMask.platform | PhysicsMask.barrel
+        self.physicsBody?.collisionBitMask = PhysicsMask.elevator | PhysicsMask.platform
         self.physicsBody?.restitution = 0.4
         self.setScale(1.0)
 //        floor = SKPhysicsBody(edgeFrom: CGPoint(x: self.frame.minX, y: self.frame.minY), to: CGPoint(x: self.frame.maxX, y: self.frame.minY))
