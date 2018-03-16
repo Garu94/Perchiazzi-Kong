@@ -10,6 +10,9 @@ import SpriteKit
 
 class Princess: SKSpriteNode {
   
+  //Preload Sounds
+  
+  let kissSound = SKAction.playSoundFileNamed("kissSound.wav", waitForCompletion: false)
   //Textures
   var textures: [String: [SKTexture]] = [:]
   
@@ -42,6 +45,7 @@ class Princess: SKSpriteNode {
   }
   
   func reachedByPlayer() {
+    run(kissSound)
     self.animate(type: "win")
     debugPrint("Princess Reached")
   }

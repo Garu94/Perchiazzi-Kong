@@ -338,6 +338,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         }
     }
+  
     
     override func update(_ currentTime: TimeInterval) {
         if lastTime <= 0 { lastTime = currentTime }
@@ -356,7 +357,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if mario.position.y >= (stefaniaPlatform.position.y + mario.frame.height/2) {
             win()
         }
-        
+      
         checkfallenDown()
         checkBorderCollisionBarrel()
         checkPrincessCollision()

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 private class _LauncPassthroughView: UIView {
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
@@ -19,7 +20,6 @@ private class _LauncPassthroughView: UIView {
 @IBDesignable
 class LauncView : UIView, CAAnimationDelegate {
 
-
 	var animationCompletions = Dictionary<CAAnimation, (Bool) -> Void>()
 	var viewsByName: [String : UIView]!
 
@@ -31,6 +31,7 @@ class LauncView : UIView, CAAnimationDelegate {
 
 	override init(frame: CGRect) {
 		super.init(frame: frame)
+    
 		self.setupHierarchy()
 	}
 
@@ -40,7 +41,6 @@ class LauncView : UIView, CAAnimationDelegate {
 	}
 
 	// - MARK: Scaling
-
 	override func layoutSubviews() {
 		super.layoutSubviews()
 
