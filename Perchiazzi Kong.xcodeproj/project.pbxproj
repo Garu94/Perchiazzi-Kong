@@ -559,7 +559,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6NHZGWQ43K;
+				DEVELOPMENT_TEAM = A3F6492EW5;
 				INFOPLIST_FILE = "Perchiazzi Kong/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.simonegaruglieri.Perchiazzi-Kong";
@@ -574,7 +574,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6NHZGWQ43K;
+				DEVELOPMENT_TEAM = A3F6492EW5;
 				INFOPLIST_FILE = "Perchiazzi Kong/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.simonegaruglieri.Perchiazzi-Kong";

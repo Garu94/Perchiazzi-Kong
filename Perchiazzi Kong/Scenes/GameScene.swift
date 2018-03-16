@@ -295,7 +295,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func checkUltimateDeath() {
         backgroundMusicPlayer.stop()
         let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-        if GameManager.shared.life == 0 {
+        if GameManager.shared.life <= 0 {
             let endScene = EndScene(size: size, won: false)
             endScene.scaleMode = scaleMode
             GameManager.shared.score = 0
