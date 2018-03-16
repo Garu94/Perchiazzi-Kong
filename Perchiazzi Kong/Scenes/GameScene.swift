@@ -104,6 +104,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     override func didMove(to view: SKView) {
+        //Sound
+        playBackgroundMusic(filename: "gameSound.wav")
+      
         //    backgroundColor = .gray
         background.size = CGSize(width: view.frame.width, height: view.frame.height)
         background.position = CGPoint(x: view.frame.midX, y: view.frame.midY)
@@ -265,6 +268,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     }
     
     func checkUltimateDeath() {
+        backgroundMusicPlayer.stop()
         let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
         if GameManager.shared.life == 0 {
             let endScene = EndScene(size: size, won: false)
@@ -345,6 +349,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             }
         }
     }
+  
+  func checkDespawnBarrel() {
+    enumerateChildNodes(withName: "barrel") { barrel, _ in
+      if (barrel.position.y == self.basePlatform1.position.y) {
+        if barrel.position.x < (self.view?.frame.midX)! {
+          barrel.physicsBody?.applyImpulse(CGVector(dx: 300, dy: 0))
+        } else {
+          barrel.physicsBody?.applyImpulse(CGVector(dx: -300, dy: 0))
+        }
+      }
+    }
+  }
+  
     
     override func update(_ currentTime: TimeInterval) {
         if lastTime <= 0 { lastTime = currentTime }
@@ -363,10 +380,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         if mario.position.y >= (stefaniaPlatform.position.y + mario.frame.height/2) {
             win()
         }
-        
+      
         checkfallenDown()
         checkBorderCollisionBarrel()
         checkPrincessCollision()
+        checkDespawnBarrel()
     }
     
     let darioXVelocity = 150
@@ -467,4 +485,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
         let sequence = SKAction.sequence([group, wait, present])
         self.run(sequence)
     }
+  
+  var backgroundMusicPlayer: AVAudioPlayer!
+  func playBackgroundMusic(filename: String) {
+    let resourceUrl = Bundle.main.url(forResource: filename, withExtension: nil)
+    guard let url = resourceUrl else {
+      print("Could not find file: \(filename)")
+      return
+    }
+    do {
+      try backgroundMusicPlayer = AVAudioPlayer(contentsOf: url)
+      backgroundMusicPlayer.numberOfLoops = -1
+      backgroundMusicPlayer.prepareToPlay()
+      backgroundMusicPlayer.play()
+    } catch {
+      print("Could not create audio player!")
+      return
+    }
+  }
 }

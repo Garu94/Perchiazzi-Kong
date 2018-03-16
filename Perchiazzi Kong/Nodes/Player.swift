@@ -9,7 +9,10 @@
 import SpriteKit
 
 class Player: SKSpriteNode {
-    
+  
+    //Preload Sound
+    let jumpSound = SKAction.playSoundFileNamed("jump.wav", waitForCompletion: false)
+  
     var textures: [String: [SKTexture]] = [:]
     var velocity: CGFloat = 170
     var isJumping = false
@@ -108,7 +111,8 @@ class Player: SKSpriteNode {
             }
         }
         let jumpSequence = SKAction.sequence([startAction, jumpUpAction, jumpDownAction, stopJump])
-        
+      
+        run(jumpSound)
         self.run(jumpSequence)
     }
     
