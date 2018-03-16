@@ -10,41 +10,41 @@ import Foundation
 import SpriteKit
 
 enum Scores {
-    static let bonus = 10
+  static let bonus = 10
 }
 
 class GameManager {
-    
-    static let shared = GameManager()
-    
-    let bonusString: String = "BONUS: "
-    var score: Int = 0
-    var bonus: Int = 5000
-    var timerCounter: Int = 0
-    var life: Int = 3
-    
-    //textures
-    var allTextures: [SKTexture] = []
-    
-    var timer: Timer? {
-        willSet {
-            timer?.invalidate()
-            timerCounter = 0
-        }
+  
+  static let shared = GameManager()
+  
+  let bonusString: String = "BONUS: "
+  var score: Int = 0
+  var bonus: Int = 5000
+  var timerCounter: Int = 0
+  var life: Int = 3
+  
+  //textures
+  var allTextures: [SKTexture] = []
+  
+  var timer: Timer? {
+    willSet {
+      timer?.invalidate()
+      timerCounter = 0
     }
-    
-    func stopTimer() {
-        timer?.invalidate()
-    }
-    
-    func startTimer(label: SKLabelNode) {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
-            self.timerCounter += 1
-            if self.timerCounter % 2 == 0 {
-                self.bonus -= 100
-                label.text = self.bonusString + "\(self.bonus)"
-                }
-        })
-    }
+  }
+  
+  func stopTimer() {
+    timer?.invalidate()
+  }
+  
+  func startTimer(label: SKLabelNode) {
+    timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
+      self.timerCounter += 1
+      if self.timerCounter % 2 == 0 {
+        self.bonus -= 100
+        label.text = self.bonusString + "\(self.bonus)"
+      }
+    })
+  }
 }
 
