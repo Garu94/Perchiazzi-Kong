@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "elevator_sprite_right.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "elevator_sprite_right.png",
       "scale" : "2x"
     },
     {

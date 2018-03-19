@@ -321,7 +321,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
     func startTimerForBarrel() {
         timer1 = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { t in
             self.timerCounterBarrel += 1
-            if self.timerCounterBarrel % 5 == 0 {
+            if self.timerCounterBarrel % 4 == 0 {
                 self.spawnBarrel()
             }
         })
@@ -339,7 +339,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, UIGestureRecognizerDelegate 
             if randomImpulse == 1 {
                 barrel.physicsBody?.applyImpulse(CGVector(dx: 300.0, dy: 0.0))
             } else {
-                barrel.physicsBody?.applyImpulse(CGVector(dx: 1000.0, dy: 0.0))
+                barrel.physicsBody?.applyImpulse(CGVector(dx: 800.0, dy: 0.0))
             }
         }
         let wait1 = SKAction.wait(forDuration: 0.4)
